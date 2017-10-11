@@ -12,33 +12,33 @@ app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SECRET,  
     resave: false,                
-    saveUnitialized: true        
+    saveUninitialized: true        
 }))
 
 app.use(passport.initialize());
 app.use(passport.session());      
 
-massive(process.env.CONNECTION_STRING).then( db => {  //in .env file --> add new database in heroku and copy the uri string then add ?ssl=true to the end
+massive(process.env.CONNECTION_STRING).then( db => { 
     app.set('db', db);  
 })   
 
 passport.use(new Auth0Strategy({
-    domain: process.env.AUTH_DOMAIN,                 //in order to get this info, create a new client on Auth0
-    clientID: process.env.AUTH_CLIENT_ID,            //all stored in .env file
+    domain: process.env.AUTH_DOMAIN, 
+    clientID: process.env.AUTH_CLIENT_ID,           
     clientSecret: process.env.AUTH_CLIENT_SECRET,
     callbackURL: process.env.CALLBACK_URL 
 }, 
 function(accessToken, refreshToken, extraParams, profile, done) { 
     const db = app.get('db'); 
    
-    db.find_user([ profile.identities[0].user_id ])     //can console.log profile to find what info you need or create a breakpoint to find the same
+    db.find_user([ profile.identities[0].user_id ]) 
       .then( user => {
           if (user[0]) { 
             return done(null, user[0].id)    
           } 
           else {
             const user = profile._json;  
-            db.create_user( [user.name, user.email, user.picture, user.identities[0].user_id] )
+            db.create_user( [user.given_name, user.family_name, user.email, user.picture, user.identities[0].user_id] )
               .then( user => {
                   return done(null, user[0].id);
               })
