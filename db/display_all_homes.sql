@@ -1,0 +1,1 @@
+select (country, address, state, city, zip, bathrooms, bedrooms, guests, bed, title, about_body, img) from homes

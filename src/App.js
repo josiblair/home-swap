@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
+// import axios from 'axios';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import AddHome from './components/AddHome/Add';
 import Home from './components/HomePage/Home';
@@ -11,14 +11,17 @@ import HowItWorks from './components/HowItWorks/About';
 import Destinations from './components/Destinations/Homes';
 
 
+//current componentDidMount() shows successful api request for information on specific query (when query is entered)
+
+
 class App extends Component {
 
-  componentDidMount() {
-    axios.get( 'https://api.mapbox.com/geocoding/v5/mapbox.places/${ query }.json?access_token=pk.eyJ1Ijoiam9zaWJsYWlyIiwiYSI6ImNqOGtub202YjBnMzUycW11cXRtM3JwMHUifQ.W4ZSzi0wEv3CNC8729Jpcw&types=place&limit=10&autocomplete=true' )
-         .then( response => {
-           console.log(response)
-         })
-  }
+  // componentDidMount() {
+  //   axios.get( 'https://api.mapbox.com/geocoding/v5/mapbox.places/${ query }.json?access_token=pk.eyJ1Ijoiam9zaWJsYWlyIiwiYSI6ImNqOGtub202YjBnMzUycW11cXRtM3JwMHUifQ.W4ZSzi0wEv3CNC8729Jpcw&types=place&limit=10&autocomplete=true' )
+  //        .then( response => {
+  //          console.log(response)
+  //        })
+  // }
 
   render() {
     return (

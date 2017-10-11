@@ -5,8 +5,11 @@ const express = require('express'),
       massive = require('massive'),
       passport = require('passport'),
       Auth0Strategy = require('passport-auth0');
+      cors = require('cors');
 
 const app = express();
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(session({
@@ -16,7 +19,7 @@ app.use(session({
 }))
 
 app.use(passport.initialize());
-app.use(passport.session());      
+app.use(passport.session()); 
 
 massive(process.env.CONNECTION_STRING).then( db => { 
     app.set('db', db);  
@@ -30,10 +33,11 @@ passport.use(new Auth0Strategy({
 }, 
 function(accessToken, refreshToken, extraParams, profile, done) { 
     const db = app.get('db'); 
-   
+
     db.find_user([ profile.identities[0].user_id ]) 
       .then( user => {
           if (user[0]) { 
+              console.log('user[0]', user[0])
             return done(null, user[0].id)    
           } 
           else {
@@ -49,10 +53,11 @@ function(accessToken, refreshToken, extraParams, profile, done) {
 
 app.get('/auth', passport.authenticate('auth0')); 
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/profile', //whatever running the front-end on 
+    successRedirect: 'http://localhost:3000/#/profile',  
     failureRedirect: '/auth'
-})); 
+}));
 app.get('/auth/me', (req, res) => { 
+    console.log('req', req.user)
     if(!req.user) {
         return res.status(404).send('User Not Found');
     } 
@@ -64,6 +69,14 @@ app.get('/auth/me', (req, res) => {
 app.get('/auth/logout', (req, res) => {
     req.logOut(); 
     res.redirect(302, 'http://localhost:3000/#/')
+})
+
+app.post('/api/addhome', (req, res) => {
+    const db = req.app.get('db');
+    const home = req.body;
+    
+    db.add_home( [home.user_id, home.country, home.address, home.state, home.city, home.zip, home.bathrooms, home.bedrooms, home.guests, home.bed, home.title, home.about_body, home.img] )
+      .then( results => res.send(results[0]) );
 })
 
 passport.serializeUser( ( id, done ) => { 
