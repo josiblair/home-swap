@@ -1,2 +1,2 @@
 select * from homes
-where user_id = ???
+where user_id = $1 

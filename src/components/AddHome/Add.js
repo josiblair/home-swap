@@ -26,11 +26,6 @@ class Add extends Component {
         }
     }
 
-    submitForm(){
-        const { country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about } = this.state;
-        addHome( this.props.user, country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about )
-    }
-
     handleCountryChange(val) {
         this.setState({
             country: val
@@ -47,6 +42,13 @@ class Add extends Component {
             city: val
         })
     }
+
+    handleStateChange(val) {
+        this.setState({
+            state: val
+        })
+    }
+
     handleZipChange(val) {
         this.setState({
             zip: val
@@ -97,6 +99,8 @@ class Add extends Component {
 
     render(){
 
+        const { country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about } = this.state;
+
         return (
             <div className='add_container'>
                 <Nav />
@@ -130,8 +134,7 @@ class Add extends Component {
 
                     <div className='property_img'>
                         <span>Upload Image of Home</span>
-                        <input type='file' onChange={ (e) => this.handleImgChange(e.target.value) } />
-                        <button>Upload Image</button>
+                        <input placeholder='URL' onChange={ (e) => this.handleImgChange(e.target.value) } />
                     </div>
 
                     <div className='add_about'>
@@ -142,7 +145,7 @@ class Add extends Component {
                         <textarea className='about_paragraph' rows='10' onChange={ (e) => this.handleAboutChange(e.target.value) } ></textarea>
                     </div>
 
-                    <button onClick={ () => this.submitForm() }>Add Your Home!</button>
+                    <button onClick={ () => this.props.addHome(this.props.userid, country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about) }>Add Your Home!</button>
 
                 </div>
                 <Footer />
@@ -153,7 +156,7 @@ class Add extends Component {
 
 function mapStateToProps(state) {
     return{
-        user: state.user
+        userid: state.userid
     }
 }
 

@@ -37,7 +37,6 @@ function(accessToken, refreshToken, extraParams, profile, done) {
     db.find_user([ profile.identities[0].user_id ]) 
       .then( user => {
           if (user[0]) { 
-              console.log('user[0]', user[0])
             return done(null, user[0].id)    
           } 
           else {
@@ -57,7 +56,6 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: '/auth'
 }));
 app.get('/auth/me', (req, res) => { 
-    console.log('req', req.user)
     if(!req.user) {
         return res.status(404).send('User Not Found');
     } 
@@ -71,12 +69,37 @@ app.get('/auth/logout', (req, res) => {
     res.redirect(302, 'http://localhost:3000/#/')
 })
 
-app.post('/api/addhome', (req, res) => {
+app.post('/addhome', (req, res) => {
     const db = req.app.get('db');
     const home = req.body;
     
     db.add_home( [home.user_id, home.country, home.address, home.state, home.city, home.zip, home.bathrooms, home.bedrooms, home.guests, home.bed, home.title, home.about_body, home.img] )
       .then( results => res.send(results[0]) );
+})
+
+app.get('/displayall', (req, res) => {
+    const db = req.app.get('db');
+
+    db.display_all_homes().then( homes => {
+        res.send(homes);
+    })
+})
+
+app.get('/displaymyhome/:id', (req, res) => {
+    const db = req.app.get('db');
+    const id = req.params.id;
+
+    db.display_my_home([id]).then( home => {
+        res.send(home);
+    })
+})
+
+app.delete('/removehome/:id', (req, res) => {
+    const db=req.app.get('db');
+    console.log(req.params);
+    const id=req.params.id;
+
+    db.delete_home([id]).then( () => res.send() )  
 })
 
 passport.serializeUser( ( id, done ) => { 
@@ -86,6 +109,7 @@ passport.serializeUser( ( id, done ) => {
 passport.deserializeUser( ( id, done ) => { 
     app.get('db').find_current_user( [id] )
        .then( user => {
+          
             done(null, user[0]);    
        })
      
