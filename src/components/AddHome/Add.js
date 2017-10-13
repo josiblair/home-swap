@@ -26,74 +26,80 @@ class Add extends Component {
         }
     }
 
-    handleCountryChange(val) {
+    handleInput(val, formProperty) {
         this.setState({
-            country: val
+            [formProperty]: val
         })
     }
 
-    handleStreetChange(val) {
-        this.setState({
-           street: val
-        })
-    }
-    handleCityChange(val) {
-        this.setState({
-            city: val
-        })
-    }
+    // handleCountryChange(val) {
+    //     this.setState({
+    //         country: val
+    //     })
+    // }
 
-    handleStateChange(val) {
-        this.setState({
-            state: val
-        })
-    }
+    // handleStreetChange(val) {
+    //     this.setState({
+    //        street: val
+    //     })
+    // }
+    // handleCityChange(val) {
+    //     this.setState({
+    //         city: val
+    //     })
+    // }
 
-    handleZipChange(val) {
-        this.setState({
-            zip: val
-        })
-    }
-    handleBathroomsChange(val) {
-        this.setState({
-            bathrooms: val
-        })
-    }
-    handleBedroomsChange(val) {
-        this.setState({
-            bedrooms: val
-        })
-    }
+    // handleStateChange(val) {
+    //     this.setState({
+    //         state: val
+    //     })
+    // }
 
-    handleBedsChange(val) {
-        this.setState({
-            beds: val
-        })
-    }
+    // handleZipChange(val) {
+    //     this.setState({
+    //         zip: val
+    //     })
+    // }
+    // handleBathroomsChange(val) {
+    //     this.setState({
+    //         bathrooms: val
+    //     })
+    // }
+    // handleBedroomsChange(val) {
+    //     this.setState({
+    //         bedrooms: val
+    //     })
+    // }
 
-    handleGuestsChange(val) {
-        this.setState({
-            guests: val
-        })
-    }
+    // handleBedsChange(val) {
+    //     this.setState({
+    //         beds: val
+    //     })
+    // }
 
-    handleImgChange(val) {
-        this.setState({
-            img: val
-        })
-    }
+    // handleGuestsChange(val) {
+    //     this.setState({
+    //         guests: val
+    //     })
+    // }
 
-    handleTitleChange(val) {
-        this.setState({
-            title: val
-        })
-    }
+    // handleImgChange(val) {
+    //     this.setState({
+    //         img: val
+    //     })
+    // }
 
-    handleAboutChange(val) {
-        this.setState({
-            about: val
-        })
-    }
+    // handleTitleChange(val) {
+    //     this.setState({
+    //         title: val
+    //     })
+    // }
+
+    // handleAboutChange(val) {
+    //     this.setState({
+    //         about: val
+    //     })
+    // }
 
 
 
@@ -108,41 +114,41 @@ class Add extends Component {
                     <div className='basics'>
                         <span>Location:</span>
                             <span>Country</span>
-                            <input placeholder='Country' onChange={ (e) => this.handleCountryChange(e.target.value) } />
+                            <input placeholder='Country' onChange={ (e) => this.handleInput(e.target.value, country) } />
                             <span>Street Address</span>
-                            <input placeholder='Street' onChange={ (e) => this.handleStreetChange(e.target.value) }/>
+                            <input placeholder='Street' onChange={ (e) => this.handleInput(e.target.value, street) }/>
                             <span>City</span>
-                            <input placeholder='City' onChange={ (e) => this.handleCityChange(e.target.value) } />
+                            <input placeholder='City' onChange={ (e) => this.handleInput(e.target.value, city) } />
                             <span>State/Region</span>
-                            <input placeholder='State/Region' onChange={ (e) => this.handleStateChange(e.target.value) } />
+                            <input placeholder='State/Region' onChange={ (e) => this.handleInput(e.target.value, state) } />
                             <span>Zip</span>
-                            <input placeholder='Zip' onChange={ (e) => this.handleZipChange(e.target.value) } />
+                            <input placeholder='Zip' onChange={ (e) => this.handleInput(e.target.value, zip) } />
                     </div>
 
                     <div className='type'>
                         <span>Property Type</span>
                             <span>Bathrooms</span>
-                            <input placeholder='# of Bathrooms' onChange={ (e) => this.handleBathroomsChange(e.target.value) } />
+                            <input placeholder='# of Bathrooms' onChange={ (e) => this.handleInput(e.target.value, bathrooms) } />
                             <span>Bedrooms</span>
-                            <input placeholder='# of Bedrooms' onChange={ (e) => this.handleBedroomsChange(e.target.value) } />
+                            <input placeholder='# of Bedrooms' onChange={ (e) => this.handleInput(e.target.value, bedrooms) } />
                             <span>Guests</span>
-                            <input placeholder='Max # of Guests' onChange={ (e) => this.handleGuestsChange(e.target.value) } />
+                            <input placeholder='Max # of Guests' onChange={ (e) => this.handleInput(e.target.value, guests) } />
                             <span>Beds</span>
-                            <input placeholder='# of Beds' onChange={ (e) => this.handleBedsChange(e.target.value) } />
+                            <input placeholder='# of Beds' onChange={ (e) => this.handleInput(e.target.value, beds) } />
 
                     </div>
 
                     <div className='property_img'>
                         <span>Upload Image of Home</span>
-                        <input placeholder='URL' onChange={ (e) => this.handleImgChange(e.target.value) } />
+                        <input placeholder='URL' onChange={ (e) => this.handleInput(e.target.value, img) } />
                     </div>
 
                     <div className='add_about'>
                         <span>Name Your Place</span>
-                        <input placeholder='Listing Title' onChange={ (e) => this.handleTitleChange(e.target.value) } />
+                        <input placeholder='Listing Title' onChange={ (e) => this.handleInput(e.target.value, title) } />
 
                         <span>Tell Us About Your Home</span>
-                        <textarea className='about_paragraph' rows='10' onChange={ (e) => this.handleAboutChange(e.target.value) } ></textarea>
+                        <textarea className='about_paragraph' rows='10' onChange={ (e) => this.handleInput(e.target.value, about) } ></textarea>
                     </div>
 
                     <button onClick={ () => this.props.addHome(this.props.userid, country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about) }>Add Your Home!</button>

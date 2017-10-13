@@ -16,7 +16,7 @@ class Homes extends Component {
     componentDidMount(){
         axios.get('/displayall')
              .then( res => {
-                 console.log(res.data)  //currently displaying all homes as objects in console :) randomly breaks in console..? 'cannot read property 'display_all_homes' of undefined
+                 console.log(res.data)  //currently displaying all homes as objects in console :) just don't know how to go about displaying the data in my jsx :(
              })
     }
 
@@ -27,13 +27,17 @@ class Homes extends Component {
     }
 
     handleSearch() {
-        axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.state.query}.json?access_token=pk.eyJ1Ijoiam9zaWJsYWlyIiwiYSI6ImNqOGtub202YjBnMzUycW11cXRtM3JwMHUifQ.W4ZSzi0wEv3CNC8729Jpcw&types=place&limit=10&autocomplete=true` )
+        axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.state.query}.json?${process.env.API_ACCESS_TOKEN}` )
         .then( response => {
            console.log(response) //successfully displays objects with the ^^^ query in console log :) still need to app.get to get all homes with matching location
+                                //possibly another axios.get to display homes containing query..?!
        })
     }
 
     render() {
+
+
+
         return(
             <div className='homes_container'>
                 <Nav />

@@ -6,7 +6,6 @@ import AddHome from './components/AddHome/Add';
 import Home from './components/HomePage/Home';
 import Dashboard from './components/Dashboard/Dashboard';
 import Contact from './components/Contact/Contact';
-import Edit from './components/EditProfile/Edit';
 import HowItWorks from './components/HowItWorks/About';
 import Destinations from './components/Destinations/Homes';
 
@@ -32,7 +31,6 @@ class App extends Component {
             <Route path='/destinations' component={Destinations} />
             <Route path='/contact' component={Contact} />
             <Route path='/dashboard' component={Dashboard} />
-            <Route path='/editprofile' component={Edit} />
             <Route path='/addhome' component={AddHome} />
             <Route path='/about' component={HowItWorks} />
           </Switch>

@@ -8,48 +8,65 @@ import axios from 'axios';
 
 
 class Dashboard extends Component {
-    constructor(){
+    constructor() {
         super()
 
-        this.state={
+        this.state = {
+            firstName: '',
+            lastName: '',
             phone: '',
-            email: ''
+            email: '',
+            editEmail: false,
+            editPhone: false
         }
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
         axios.get('/auth/me').then(res => {
             this.props.fetchUserData(res.data.id);
+            this.setState({
+                firstName: res.data.first_name,
+                lastName: res.data.last_name
+            })
         })
-       
+
     }
 
     handleDeletion(id) {
-        axios.delete('/api/removehome/' + id ) 
-             .then( response => { 
+        axios.delete('/api/removehome/' + id)
+            .then(response => {
                 console.log("Thank you for working")
-              })
+            })
     }
 
-    changePhoneNumber(e) {
+    editPhone() {
         this.setState({
-            phone: e.target.value
+            editPhone: !this.state.editPhone
         })
     }
 
-    // displayHome(id) {
-    //     axios.get(`/displaymyhome/${id}`)
-    //          .then( res => {
-    //              console.log(res)
-    //          })
-    // }
+    editEmail() {
+        this.setState({
+            editEmail: !this.state.editEmail
+        })
+    }
+
+    changePhoneNumber(val) {
+        this.setState({
+            phone: val
+        })
+    }
+
+    changeEmail(val) {
+        this.setState({
+            email: val
+        })
+    }
 
 
-    //edit the "edit profile" to just update the info on this page. may have to set state. 
+    render() {
 
-    render(){
-        
         const { st, city, title, img, userid } = this.props.userData;
 
         return (
@@ -59,9 +76,13 @@ class Dashboard extends Component {
                 <div className='prof_sidenav'>
                     <div className='profile_img'></div>
                     <div>
-                        <span>Name</span>
-                        <span>Phone Number: {this.state.phone} </span><button>Edit</button>
-                        <span>Email: {this.state.email}</span><button>Edit</button>
+                        <span>Name: {this.state.firstName} {this.state.lastName}</span>
+
+                        { this.state.editPhone ? <div><input onChange={ (e) => this.changePhoneNumber(e.target.value) } /><button onClick={ () => this.editPhone() }>Save</button></div> : 
+                                                 <div><span>Phone Number: {this.state.phone} </span><button onClick={ () => this.editPhone() }>Edit</button></div> }
+
+                        { this.state.editEmail ? <div><input onChange={(e) => this.changeEmail(e.target.value)} /><button onClick={() => this.editEmail()}>Save</button></div> :
+                            <div><span>Email: {this.state.email} </span> <button onClick={() => this.editEmail()}>Edit</button></div> }
                     </div>
                 </div>
 
@@ -76,13 +97,13 @@ class Dashboard extends Component {
                         <h3>{title}</h3>
                         <h4>{city}, {st}</h4>
                     </div>
-                   
+
                 </div>
                 <div className='addHome'>
                     <Link to='/addhome'><button>Add My Home!</button></Link>
                 </div>
 
-                <button onClick={ () => this.handleDeletion(userid)}>Remove My Home</button>
+                <button onClick={() => this.handleDeletion(userid)}>Remove My Home</button>
 
                 <Footer />
             </div>
@@ -90,8 +111,8 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps(state){
-    return{
+function mapStateToProps(state) {
+    return {
         userData: state.userData
     }
 }
