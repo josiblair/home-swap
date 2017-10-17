@@ -16,8 +16,8 @@ class Homes extends Component {
     componentDidMount(){
         axios.get('/displayall')
              .then( res => {
-                 console.log(res.data)  //currently displaying all homes as objects in console :) just don't know how to go about displaying the data in my jsx :(
-             })
+                 console.log(res.data)  //currently displaying all homes as array of objects in console :) just don't know how to go about displaying the data in my jsx :(
+             })                         //do i need to map over array objects then display them that way??
     }
 
     handleQueryChange(val){
@@ -36,7 +36,10 @@ class Homes extends Component {
 
     render() {
 
-
+        // const homes = res.data.map( (home, i) => {
+        //     <div key={i} className='home_container'>
+        //     </div>
+        // })
 
         return(
             <div className='homes_container'>

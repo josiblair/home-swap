@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const initialState = {
-
-   userData:{ userid: 0,
+   userData: { 
+    userid: 0,
     country: '',
     address: '',
     st: '',
@@ -16,12 +16,11 @@ const initialState = {
     about: '',
     img: ''
    }
-   
 }
 
 const FULFILLED = "_FULFILLED";
-const PENDING = "_PENDING";
-const REJECTED = '_REJECTED';
+// const PENDING = "_PENDING";
+// const REJECTED = '_REJECTED';
 const ADD_HOME = 'ADD_HOME';
 const UPDATE_USER = 'UPDATE_USER';
 
@@ -51,13 +50,19 @@ export function addHome(userid, country, address, st, city, zip, bathrooms, bedr
 }
 
 export function fetchUserData(id) {
-    const userData = axios.get(`/displaymyhome/${id}`)
-        .then(res => {
-            return res.data
+    console.log(id)
+    // const userData = axios.get(`/displaymyhome/${id}`)
+
+    const userData = axios.get(`http://localhost:3005/displaymyhome/${id}`)
+
+    .then(response => {
+        console.log(response.data)
+            return response.data   //no longer sets the userid on state..? 
         })
-    return {
-        type: UPDATE_USER,
-        payload: userData
-    }
+         return {
+             type: UPDATE_USER,
+             payload: userData
+         }
+    
 }
 

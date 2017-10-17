@@ -24,7 +24,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className='App'>
         <HashRouter>
           <Switch>
             <Route exact path='/' component={Home} />

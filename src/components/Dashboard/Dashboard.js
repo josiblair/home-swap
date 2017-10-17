@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-import { Link } from 'react-router-dom';
 import { fetchUserData } from '../../ducks/reducer';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Add from '../AddHome/Add';
 
 
 class Dashboard extends Component {
@@ -16,27 +16,33 @@ class Dashboard extends Component {
             lastName: '',
             phone: '',
             email: '',
+            userid: null,
             editEmail: false,
-            editPhone: false
+            editPhone: false,
+            displayHome: false
         }
     }
+
+    //how to set displayHome as true if the user has a home in the database..??
 
 
     componentDidMount() {
         axios.get('/auth/me').then(res => {
             this.props.fetchUserData(res.data.id);
+
             this.setState({
                 firstName: res.data.first_name,
-                lastName: res.data.last_name
+                lastName: res.data.last_name,
+                userid: res.data.id
             })
         })
 
     }
 
     handleDeletion(id) {
-        axios.delete('/api/removehome/' + id)
+        axios.delete(`/api/removehome/${id}`)
             .then(response => {
-                console.log("Thank you for working")
+                return response.data ? this.setState({ displayHome: false }) : this.state.displayHome
             })
     }
 
@@ -64,10 +70,37 @@ class Dashboard extends Component {
         })
     }
 
+    displayPhone() {
+        return this.state.editPhone ? <div><input onChange={(e) => this.changePhoneNumber(e.target.value)} /><button onClick={() => this.editPhone()}>Save</button></div> :
+            <div><span>Phone Number: {this.state.phone} </span><button onClick={() => this.editPhone()}>Edit</button></div>
+    }
 
+    displayEmail() {
+        return this.state.editEmail ? <div><input onChange={(e) => this.changeEmail(e.target.value)} /><button onClick={() => this.editEmail()}>Save</button></div> :
+            <div><span>Email: {this.state.email} </span> <button onClick={() => this.editEmail()}>Edit</button></div>
+    }
+
+    displayHome() {
+        const { img, title, city, state } = this.props.userData;
+
+        return this.state.displayHome ?
+            <div className='display_home'>
+                <div className='my_home'>
+                    <img src={img} alt='' />
+                    <h3>{title}</h3>
+                    <h4>{city}, {state}</h4>
+                </div>
+                <button onClick={() => this.handleDeletion(this.state.userid)}>Remove My Home</button>
+            </div>
+            :
+            <div className='hide_home'>
+                <div>Add Your Home!</div>
+                <Add userid={this.state.userid} />
+            </div>
+    }
+
+    
     render() {
-
-        const { st, city, title, img, userid } = this.props.userData;
 
         return (
             <div className='profile_container'>
@@ -77,12 +110,8 @@ class Dashboard extends Component {
                     <div className='profile_img'></div>
                     <div>
                         <span>Name: {this.state.firstName} {this.state.lastName}</span>
-
-                        { this.state.editPhone ? <div><input onChange={ (e) => this.changePhoneNumber(e.target.value) } /><button onClick={ () => this.editPhone() }>Save</button></div> : 
-                                                 <div><span>Phone Number: {this.state.phone} </span><button onClick={ () => this.editPhone() }>Edit</button></div> }
-
-                        { this.state.editEmail ? <div><input onChange={(e) => this.changeEmail(e.target.value)} /><button onClick={() => this.editEmail()}>Save</button></div> :
-                            <div><span>Email: {this.state.email} </span> <button onClick={() => this.editEmail()}>Edit</button></div> }
+                        {this.displayPhone()}
+                        {this.displayEmail()}
                     </div>
                 </div>
 
@@ -92,18 +121,8 @@ class Dashboard extends Component {
 
                 <div className='my_homes'>
                     <span>My Homes:</span>
-                    <div className='myhome'>
-                        <img src={img} alt='' />
-                        <h3>{title}</h3>
-                        <h4>{city}, {st}</h4>
-                    </div>
-
+                    { this.displayHome() }
                 </div>
-                <div className='addHome'>
-                    <Link to='/addhome'><button>Add My Home!</button></Link>
-                </div>
-
-                <button onClick={() => this.handleDeletion(userid)}>Remove My Home</button>
 
                 <Footer />
             </div>
@@ -112,6 +131,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state)
     return {
         userData: state.userData
     }

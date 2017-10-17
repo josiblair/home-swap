@@ -1,0 +1,50 @@
+//google fonts
+
+@import url('https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One');
+
+//variables
+
+$header-font: 'Fjalla One', sans-serif;
+$body-font: 'Cantarell', sans-serif;
+$font-color: #333;
+$font-size: 16px;
+$pink: #E14658;
+$purple: #3F3250;
+$gunmetal: #22252C;
+$beige: #C0B3A0;
+$border: 1px solid black;
+$margin: 10px;
+$logo-height: 60px;
+$logo-width: 130px;
+
+
+//styles
+
+.footer_container {
+    font-family: $header-font;
+    height: 200px;
+    width: 100vw;
+    background-color: $gunmetal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer_img_container {
+    margin: $margin + 5px;
+}
+
+.footer_logo {
+    height: $logo-height + 25px;
+    width: $logo-width + 40px;
+}
+
+.footer_links_container {
+    a {
+        color: $pink;
+        font-size: $font-size;
+        text-decoration: none;
+        margin: $margin;
+    }
+}

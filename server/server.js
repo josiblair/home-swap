@@ -4,8 +4,9 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       massive = require('massive'),
       passport = require('passport'),
-      Auth0Strategy = require('passport-auth0');
-      cors = require('cors');
+      Auth0Strategy = require('passport-auth0'),
+      cors = require('cors'),
+      controller = require('../server/controller');
 
 const app = express();
 
@@ -69,38 +70,10 @@ app.get('/auth/logout', (req, res) => {
     res.redirect(302, 'http://localhost:3000/#/')
 })
 
-app.post('/addhome', (req, res) => {
-    const db = req.app.get('db');
-    const home = req.body;
-    
-    db.add_home( [home.user_id, home.country, home.address, home.state, home.city, home.zip, home.bathrooms, home.bedrooms, home.guests, home.bed, home.title, home.about_body, home.img] )
-      .then( results => res.send(results[0]) );
-})
-
-app.get('/displayall', (req, res) => {
-    const db = req.app.get('db');
-
-    db.display_all_homes().then( homes => {
-        res.send(homes);
-    })
-})
-
-app.get('/displaymyhome/:id', (req, res) => {
-    const db = req.app.get('db');
-    const id = req.params.id;
-
-    db.display_my_home([id]).then( home => {
-        res.send(home);
-    })
-})
-
-app.delete('/removehome/:id', (req, res) => {
-    const db=req.app.get('db');
-    console.log(req.params);
-    const id=req.params.id;
-
-    db.delete_home([id]).then( () => res.send() )  
-})
+app.post( '/addhome', controller.addHome )
+app.get( '/displayall', controller.displayAll )
+app.get( '/displaymyhome/:id', controller.displayMyHome )
+app.delete( '/api/removehome/:id', controller.removeHome )
 
 passport.serializeUser( ( id, done ) => { 
     done(null, id);   

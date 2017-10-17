@@ -1,0 +1,89 @@
+//google fonts
+
+@import url('https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One');
+
+//variables
+
+$header-font: 'Fjalla One', sans-serif;
+$body-font: 'Cantarell', sans-serif;
+$font-color: #333;
+$font-size: 16px;
+$pink: #E14658;
+$purple: #3F3250;
+$gunmetal: #22252C;
+$beige: #C0B3A0;
+$border: 1px solid black;
+$margin: 10px;
+$logo-height: 60px;
+$logo-width: 130px;
+$shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+
+//styling
+
+.nav_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 9vh;
+    width: 100vw;
+    background-color: rgba(255, 255, 255, 0.9);
+    position: fixed;
+}
+
+.img_container {
+    width: 40%;
+    height: 100%;
+    margin-left: $margin;
+    margin-top: $margin - 7px;
+}
+
+.navlink {
+    font-family: $header-font;
+    margin-left: 25px;
+}
+
+.navlink {
+    a {
+        color: $pink;
+        text-decoration: none;
+        font-size: $font-size;
+        padding-bottom: 10px;
+    }
+}
+
+.navlink {
+    a:hover {
+        color: $gunmetal;
+    }
+}
+
+.nav_options {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 2px;
+    margin-right: $margin;
+}
+
+.logo {
+    height: 60px;
+    width: 130px;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 2px;
+}
+
+.log_button {
+    background-color: $pink;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: $shadow;
+}
+
+.log_button:hover {
+    background-color: $gunmetal;
+}
