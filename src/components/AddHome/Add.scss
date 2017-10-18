@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One');
+
+$header-font: 'Fjalla One', sans-serif;
+$body-font: 'Cantarell', sans-serif;
+$font-color: #333;
+$font-size: 16px;
+$pink: #E14658;
+$gunmetal: #22252C;
+$border: 1px solid black;
+$margin: 10px;
+$logo-height: 60px;
+$logo-width: 130px;
+$shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+.add_header {
+    height: 55vh;
+    width: 100%;
+    background: url('../../header_img7.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: white;
+    font-family: $header-font;
+    font-size: $font-size + 20px;
+    padding-bottom: 15px;
+}
+
+.add_section {
+    height: 65vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: $margin;
+}
+
+h2 {
+    font-family: $header-font;
+    font-size: $font-size + 5px;
+    color: $pink;
+}
+
+.basics {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-family: $body-font;
+    color: $gunmetal;
+    font-size: $font-size + 2px;
+}
+
+.type {
+    @extend .basics;
+}
+
+.add_input {
+    color: $gunmetal;
+    border: $border;
+    font-family: $body-font;
+    font-size: $font-size;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_button {
+    font-family: $body-font;
+    background-color: white;
+    border: 1px solid $pink;
+    border-radius: 3px;
+    color: $gunmetal;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: $font-size + 2px;
+    box-shadow: $shadow;
+    margin: $margin + 20px;
+}
+
+.add_button:hover {
+    background-color: $pink;
+}

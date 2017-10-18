@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-
+import './Add.css';
 import { connect } from 'react-redux';
 import { addHome } from '../../ducks/reducer';
+import Nav from '../Nav/Nav';
+import Footer from '../Footer/Footer';
 
 
 class Add extends Component {
@@ -25,9 +27,11 @@ class Add extends Component {
 
     }
 
+    //component will mount --> check to see if user has a home. If they do, redirect them to the dashboard page
+
+    //addhome button needs to add home then redirect to dashboard
 
     handleInput(val, formProperty) {
-        console.log(this.state)
         this.setState({
             [formProperty]: val
         })
@@ -40,50 +44,62 @@ class Add extends Component {
        
         return (
             <div className='add_container'>
-                <div className='add_body'>
+                <Nav />
+                <div className='add_header'>
+                    <span>Tell Us About Your Home!</span>
+                </div>
+                <div className='add_section'>
                     <div className='basics'>
-                        <span>Location:</span>
+                        <h2>Location</h2>
                             <span>Country</span>
-                            <input placeholder='Country' onChange={ (e) => this.handleInput(e.target.value, 'country') } />
+                            <input className='add_input' placeholder='Country' onChange={ (e) => this.handleInput(e.target.value, 'country') } />
+                            
                             <span>Street Address</span>
-                            <input placeholder='Street' onChange={ (e) => this.handleInput(e.target.value, 'street') }/>
+                            <input className='add_input' placeholder='Street' onChange={ (e) => this.handleInput(e.target.value, 'street') }/>
+                            
                             <span>City</span>
-                            <input placeholder='City' onChange={ (e) => this.handleInput(e.target.value, 'city') } />
+                            <input className='add_input' placeholder='City' onChange={ (e) => this.handleInput(e.target.value, 'city') } />
+                            
                             <span>State/Region</span>
-                            <input placeholder='State/Region' onChange={ (e) => this.handleInput(e.target.value, 'state') } />
+                            <input className='add_input' placeholder='State/Region' onChange={ (e) => this.handleInput(e.target.value, 'state') } />
+                            
                             <span>Zip</span>
-                            <input placeholder='Zip' onChange={ (e) => this.handleInput(e.target.value, 'zip') } />
+                            <input className='add_input' placeholder='Zip' onChange={ (e) => this.handleInput(e.target.value, 'zip') } />
                     </div>
 
                     <div className='type'>
-                        <span>Property Type</span>
+                        <h2>Property Type</h2>
                             <span>Bathrooms</span>
-                            <input placeholder='# of Bathrooms' onChange={ (e) => this.handleInput(e.target.value, 'bathrooms') } />
+                            <input className='add_input' placeholder='# of Bathrooms' onChange={ (e) => this.handleInput(e.target.value, 'bathrooms') } />
+                            
                             <span>Bedrooms</span>
-                            <input placeholder='# of Bedrooms' onChange={ (e) => this.handleInput(e.target.value, 'bedrooms') } />
+                            <input className='add_input' placeholder='# of Bedrooms' onChange={ (e) => this.handleInput(e.target.value, 'bedrooms') } />
+                            
                             <span>Guests</span>
-                            <input placeholder='Max # of Guests' onChange={ (e) => this.handleInput(e.target.value, 'guests') } />
+                            <input className='add_input' placeholder='Max # of Guests' onChange={ (e) => this.handleInput(e.target.value, 'guests') } />
+                            
                             <span>Beds</span>
-                            <input placeholder='# of Beds' onChange={ (e) => this.handleInput(e.target.value, 'beds') } />
+                            <input className='add_input' placeholder='# of Beds' onChange={ (e) => this.handleInput(e.target.value, 'beds') } />
 
-                    </div>
-
-                    <div className='property_img'>
-                        <span>Upload Image of Home</span>
-                        <input placeholder='URL' onChange={ (e) => this.handleInput(e.target.value, 'img') } />
                     </div>
 
                     <div className='add_about'>
-                        <span>Name Your Place</span>
-                        <input placeholder='Listing Title' onChange={ (e) => this.handleInput(e.target.value, 'title') } />
+                        <h2>Name Your Listing</h2>
+                        <input className='add_input' placeholder='Listing Title' onChange={ (e) => this.handleInput(e.target.value, 'title') } />
 
-                        <span>Tell Us About Your Home</span>
-                        <textarea className='about_paragraph' rows='10' onChange={ (e) => this.handleInput(e.target.value, 'about') } ></textarea>
+                        <h2>Tell Us About Your Home</h2>
+                        <textarea className='about_paragraph' rows='8' onChange={ (e) => this.handleInput(e.target.value, 'about') } ></textarea>
+
+                        <h2>Upload Image of Home</h2>
+                        <input className='add_input' placeholder='URL' onChange={ (e) => this.handleInput(e.target.value, 'img') } />
                     </div>
-
-                    <button onClick={ () => this.props.addHome(this.props.userid, country, street, state, city, zip, bathrooms, bedrooms, guests, beds, title, about, img) }>Add Your Home!</button>
-
                 </div>
+
+                <div className='add'>
+                    <button className='add_button' onClick={ () => this.props.addHome(this.props.userid, country, street, state, city, zip, bathrooms, bedrooms, guests, beds, title, about, img) }>Add Your Home!</button>
+                </div>
+
+                <Footer />
             </div>
         )
     }
