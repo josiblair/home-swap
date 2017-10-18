@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One');
+
+$header-font: 'Fjalla One', sans-serif;
+$body-font: 'Cantarell', sans-serif;
+$font-color: #333;
+$font-size: 16px;
+$pink: #E14658;
+$gunmetal: #22252C;
+$gray: lightgray;
+$border: 1px solid black;
+$margin: 10px;
+$logo-height: 60px;
+$logo-width: 130px;
+$shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+
+.search_container {
+    background-color: white;
+    height: 30vh;
+    width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+    align-items: flex-end;
+    margin: 10px;
+    padding-bottom: $margin + 10px;
+}
+
+.stay {
+    color: $gunmetal;
+    font-family: $header-font;
+    font-size: $font-size + 10px;
+    padding-right: 15px;
+}
+
+.search_input {
+    padding: 10px 30px;
+    width: 40vw;
+    font-size: $font-size + 2px;
+    font-family: $body-font;
+    margin-right: 45px;
+    border: 1px solid $pink;
+    border-radius: 3px;
+}
+
+.search_button {
+    font-family: $body-font;
+    background-color: $pink;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: $font-size + 2px;
+    box-shadow: $shadow;
+}
+
+.homes_list {
+    background-color: $gray;
+    height: 85vh;
+}

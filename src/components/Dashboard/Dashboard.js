@@ -23,7 +23,7 @@ class Dashboard extends Component {
         }
     }
 
-    //how to set displayHome as true if the user has a home in the database..??
+    //edit so when logging in, redirect to Add Home. Add 'update my home' button'
 
 
     componentDidMount() {

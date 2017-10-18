@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One');
+
+$header-font: 'Fjalla One', sans-serif;
+$body-font: 'Cantarell', sans-serif;
+$font-color: #333;
+$font-size: 16px;
+$pink: #E14658;
+$gunmetal: #22252C;
+$border: 1px solid black;
+$margin: 10px;
+$logo-height: 60px;
+$logo-width: 130px;
+$shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+.contact_header {
+    height: 55vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $pink;
+    font-size: $font-size + 25px;
+    font-family: $header-font;
+    img {
+        margin: $margin * 4;
+        height: $logo-height + 20px;
+        width: $logo-width + 40px;
+    }
+}
+
+.contact {
+    width: 50%;
+    height: 20vh;
+    background-color: $pink;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+    margin-bottom: $margin + 10px;
+    span {
+        font-family: $body-font;
+        color: $gunmetal;
+        font-size: $font-size + 5px;
+    }
+}
+

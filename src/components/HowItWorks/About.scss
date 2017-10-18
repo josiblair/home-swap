@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One');
+
+$header-font: 'Fjalla One', sans-serif;
+$body-font: 'Cantarell', sans-serif;
+$font-color: #333;
+$font-size: 16px;
+$pink: #E14658;
+$gunmetal: #22252C;
+$border: 1px solid black;
+$margin: 10px;
+$logo-height: 60px;
+$logo-width: 130px;
+$shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+
+.about_header {
+    background: url('../../header-img4.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 65vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: $header-font;
+    font-size: $font-size + 25px;
+}
+
+.about_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about_title {
+    margin-top: $margin + 20px;
+    color: $pink;
+    font-family: $header-font;
+    font-size: $font-size + 17px;
+}
+
+.about_desc {
+    color: $font-color;
+    font-family: $body-font;
+    font-size: $font-size + 5px;
+}
+
+.about_steps {
+    margin: $margin;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.about_step {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: $margin;
+    margin-bottom: $margin;
+}
+
+.odd {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.about_img {
+    width: 30%;
+}
+
+.step_desc {
+    background-color: $pink;
+    width: 40%;
+    color: white;
+    padding: $margin;
+    padding-left: $margin + 20px;
+    position: absolute;
+    h2 {
+        font-family: $header-font;
+    }
+    p {
+        font-family: $body-font;
+        font-size: $font-size + 2px;
+    }
+}
+
+.left {
+    left: 290px;
+}
+.right {
+    right: 290px;
+}
+
+.view_button {
+    font-family: $body-font;
+    background-color: white;
+    border: 2px solid $gunmetal;
+    border-radius: 3px;
+    color: $gunmetal;
+    padding: 13px 27px;
+    text-align: center;
+    text-decoration: none;
+    font-size: $font-size + 2px;
+    box-shadow: $shadow;
+    margin: $margin + 20px;
+}

@@ -23,21 +23,16 @@ class Nav extends Component {
 
     userPresent() {
         return (this.state.userid) ? 
-        <div className='navlink'>
             <div className='navlink'>
-                <Link to='/dashboard'><span>Profile</span></Link>
-            </div>
-            <div className='navlink'>
-                    <a href='http://localhost:3005/auth/logout' className='log_button'>
-                    <button>Log Out</button>
+                    <a href='http://localhost:3005/auth/logout'>
+                        <button className='log_button'>Log Out</button>
                     </a>
+            </div> : 
+            <div className='navlink'>
+                <a href={ process.env.REACT_APP_LOGIN }>
+                    <button className='log_button'>Log In</button>
+                </a>
             </div>
-        </div> : 
-        <div className='navlink'>
-            <a href={ process.env.REACT_APP_LOGIN }>
-                <button className='log_button'>Log In</button>
-            </a>
-        </div>
     }
 
 
@@ -54,6 +49,7 @@ class Nav extends Component {
                     <div className='navlink'><Link to='/destinations'><span>Desinations</span></Link></div>
                     <div className='navlink'><Link to='/about'><span>How It Works</span></Link></div>
                     <div className='navlink'><Link to='/contact'><span>Contact Us</span></Link></div>
+                    <div className='navlink'><Link to='/dashboard'><span>Profile</span></Link></div>
                     {this.userPresent()} 
                 </div>
 

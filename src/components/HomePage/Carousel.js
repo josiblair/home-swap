@@ -19,35 +19,49 @@ class Carousel extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             swipeToSlide: true,
-            centerMode: true
+            centerMode: true,
+            adaptiveHeight: true,
+            className: 'inner_slide'
           };
 
         return (
             <Slider {...settings}>
 
-              <div className='dest dest4'>
+              <div className='dest'>
                   <Link to='/destinations'>
                         <img src={beach} alt='beach' className='carousel_img' />
                   </Link>
               </div>
 
-              <div className='dest dest4'>
+              <div className='dest'>
                   <Link to='/destinations'>
                         <img src={city} alt='city' className='carousel_img' />
                   </Link>
               </div>
 
-              <div className='dest dest4'>
+              <div className='dest'>
                   <Link to='/destinations'>
                         <img src={country} alt='country' className='carousel_img' />
                   </Link>
               </div>
 
-              <div className='dest dest4'>
+              <div className='dest'>
                   <Link to='/destinations'>
                         <img src={ski} alt='ski' className='carousel_img' />
                   </Link>
               </div>
+
+              {/* <div className='dest'>
+                  <Link to='/destinations'>
+                        <img src={ski} alt='ski' className='carousel_img' />
+                  </Link>
+              </div>
+
+              <div className='dest'>
+                  <Link to='/destinations'>
+                        <img src={ski} alt='ski' className='carousel_img' />
+                  </Link>
+              </div> */}
 
             </Slider>
         )

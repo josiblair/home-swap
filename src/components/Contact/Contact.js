@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import logo from '../../homeswap-logo.png';
+import './Contact.css';
 
 
 class Contact extends Component {
@@ -9,10 +11,11 @@ class Contact extends Component {
             <div className='contact_container'>
                 <Nav />
                 <div className='contact_header'>
-                    <div className='contact_logo'></div>
+                    <div className='contact_logo'>
+                        <img src={logo} alt='' />                    </div>
                     <span>Contact Us</span>
                 </div>
-                <div>
+                <div className='contact'>
                     <span> Email: contact@homeswap.com </span>
                     <span> Toll-Free Number: 1-800-123-4567 </span>
                 </div>

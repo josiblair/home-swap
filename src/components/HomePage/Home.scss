@@ -5,9 +5,7 @@ $body-font: 'Cantarell', sans-serif;
 $font-color: #333;
 $font-size: 16px;
 $pink: #E14658;
-$purple: #3F3250;
 $gunmetal: #22252C;
-$beige: #C0B3A0;
 $border: 1px solid black;
 $margin: 10px;
 $logo-height: 60px;
@@ -127,9 +125,26 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 
 .stories_container {
-    height: 65%;
+    height: 85%;
     width: 85vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.inner_slide {
+    height: 100%;
+    width: 75%;
+    min-height: 0;
+    min-width: 0;
+}
+
+div.slick-list {
+    height: 90%;
+    width: 100%;
+    max-height: 90%;
+}
+
 
 .bottom_prompt_container {
     width: 100%;
