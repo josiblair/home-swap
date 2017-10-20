@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './Add.css';
+import { fetchUserData } from '../../ducks/reducer';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { addHome } from '../../ducks/reducer';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+// import {Redirect} from 'react-router';
 
 
 class Add extends Component {
@@ -11,6 +14,7 @@ class Add extends Component {
         super(props)
 
         this.state={
+            userid: null,
             country: '',
             street: '',
             city: '',
@@ -22,25 +26,47 @@ class Add extends Component {
             beds: 0,
             img: '',
             title: '',
-            about: ''
+            about: '',
+            hasHome: false,
+            redirect: false
         }
 
     }
+    
+    componentDidMount() {
+        axios.get('/auth/me').then(res => {
+            this.props.fetchUserData(res.data.id);
 
-    //component will mount --> check to see if user has a home. If they do, redirect them to the dashboard page
-
-    //addhome button needs to add home then redirect to dashboard
+            this.setState({
+                userid: res.data.id
+            })
+        })
+    }
 
     handleInput(val, formProperty) {
         this.setState({
-            [formProperty]: val
+            [formProperty]: val,
+            hasHome: true
         })
+    }
+
+    addHome() {
+        const { userid, country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about, hasHome } = this.state;
+
+
+        this.props.addHome(userid, country, street, state, city, zip, bathrooms, bedrooms, guests, beds, title, about, img, hasHome);
+
+        // this.setState({
+        //     redirect: true         //not redirecting!
+        // })
     }
 
 
     render(){
 
-        const { country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about } = this.state;
+        // if(this.state.redirect) {
+        //     return <Redirect to='/dashboard' />
+        // }
        
         return (
             <div className='add_container'>
@@ -96,7 +122,7 @@ class Add extends Component {
                 </div>
 
                 <div className='add'>
-                    <button className='add_button' onClick={ () => this.props.addHome(this.props.userid, country, street, state, city, zip, bathrooms, bedrooms, guests, beds, title, about, img) }>Add Your Home!</button>
+                    <button className='add_button' onClick={ () => this.addHome() }>Add Your Home!</button>
                 </div>
 
                 <Footer />
@@ -105,4 +131,10 @@ class Add extends Component {
     }
 }
 
-export default connect(null, { addHome })(Add);
+function mapStateToProps(state) {
+    return {
+        userData: state.userData
+    }
+}
+
+export default connect(mapStateToProps, { addHome, fetchUserData })(Add);

@@ -30,11 +30,7 @@ class Homes extends Component {
     handleSearch() {
         axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.state.query}.json?${process.env.API_ACCESS_TOKEN}` )
         .then( response => {
-            //console.log(response) //successfully displays objects with the ^^^ query in console log :) still need to app.get to get all homes with matching location... possibly another axios.get to display homes containing query..?!
-            // axios.get('/gethomes')
-            //      .then( res => {
-
-            //      })                    
+            console.log(response) //successfully displays objects with the ^^^ query in console log :) still need to app.get to get all homes with matching location... possibly another axios.get to display homes containing query..?!                    
        })
     }
 

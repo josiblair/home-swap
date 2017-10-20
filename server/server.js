@@ -6,7 +6,8 @@ const express = require('express'),
       passport = require('passport'),
       Auth0Strategy = require('passport-auth0'),
       cors = require('cors'),
-      controller = require('../server/controller');
+      hc = require('../server/homesController'),
+      mc = require('../server/messagesController');
 
 const app = express();
 
@@ -70,10 +71,24 @@ app.get('/auth/logout', (req, res) => {
     res.redirect(302, 'http://localhost:3000/#/')
 })
 
-app.post( '/addhome', controller.addHome )
-app.get( '/displayall', controller.displayAll )
-app.get( '/displaymyhome/:id', controller.displayMyHome )
-app.delete( '/api/removehome/:id', controller.removeHome )
+
+//HOMES ENDPOINTS 
+app.post( '/addhome', hc.addHome )
+app.get( '/displayall', hc.displayAll )
+app.get( '/displaymyhome/:id', hc.displayMyHome )
+app.get( '/searchhomes', hc.searchedHomes )
+app.delete( '/api/updatehome/:id', hc.updateHome )
+
+//--------------------------------------------------
+
+
+//MESSAGES ENDPOINTS
+// app.post( '/sendmessage', mc.sendMessage );
+// app.get( '/sentmessages/:id', mc.sentMessages );
+// app.get( '/receivedmessages/:id', mc.receivedMessages );
+
+//--------------------------------------------------
+
 
 passport.serializeUser( ( id, done ) => { 
     done(null, id);   

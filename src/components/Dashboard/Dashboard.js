@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import { fetchUserData } from '../../ducks/reducer';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import './Dashboard.css';
 
 
@@ -20,13 +20,11 @@ class Dashboard extends Component {
             email: '',
             userid: null,
             editEmail: false,
-            editPhone: false,
-            displayHome: true
+            editPhone: false
         }
     }
 
-    //edit so when logging in, redirect to Add Home. Add 'update my home' button
-    //component will mount --> when profile is clicked on in navigation... if no user is found, redirect them to home and send alert
+     //if user has a home, stay on dashboard, otherwise redirect to AddHome component
 
     componentDidMount() {
         axios.get('/auth/me').then(res => {
@@ -40,13 +38,15 @@ class Dashboard extends Component {
                 userid: res.data.id
             })
         })
-
     }
 
-    handleDeletion(id) {
-        axios.delete(`/api/removehome/${id}`)
+    
+  //if update home is chosen, state in redux will have to be cleared, then reset... not sure how to do this without adding new home to db
+
+    updateHome(id) {
+        axios.put(`/api/updatehome/${id}`)
             .then(response => {
-                return response.data ? this.setState({ displayHome: false }) : this.state.displayHome
+                return response.data 
             })
     }
 
@@ -87,23 +87,22 @@ class Dashboard extends Component {
     displayHome() {
         const { img, title, city, state } = this.props.userData;
 
-        return this.state.displayHome ?
-            <div className='display_home'>
-                <div className='my_home'>
-                    <img src={img} alt='' />
-                    <h3>{title}</h3>
-                    <h4>{city}, {state}</h4>
-                </div>
-                <button className='remove_button' onClick={() => this.handleDeletion(this.state.userid)}>Remove My Home</button>
-            </div>
-            :
-            <div className='hide_home'>
-                <Link to='/addhome'><div>Add Your Home!</div></Link>
-            </div>
+        return <div className='display_home'>
+                  <div className='my_home'>
+                        <img src={img} alt='' />
+                        <h3>{title}</h3>
+                        <h4>{city}, {state}</h4>
+                  </div>
+                <button className='remove_button' onClick={() => this.updateHome(this.state.userid)}>Update My Home</button>
+               </div>
     }
 
     
     render() {
+
+        // if(!this.props.userData.hasHome) {         //redirecting, but redirecting regardless if I have a home or not
+        //     return <Redirect to='/addhome' />
+        // }
 
         return (
             <div className='profile_container'>
