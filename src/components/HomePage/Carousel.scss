@@ -1,3 +1,75 @@
-.carousel_img {
-    width: 65%;
-}
+@import url('https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One');
+
+$header-font: 'Fjalla One', sans-serif;
+$body-font: 'Cantarell', sans-serif;
+$font-color: #333;
+$font-size: 16px;
+$pink: #E14658;
+$gunmetal: #22252C;
+$gray: lightgray;
+$border: 1px solid black;
+$margin: 10px;
+$logo-height: 60px;
+$logo-width: 130px;
+$shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .Carousel {
+    text-align: center;
+  }
+  
+  .Carousel-header {
+    height: 10vh;
+    padding: 20px;
+    color: $pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .Carousel-title {
+    font-size: $font-size + 10px;
+    font-family: $header-font;
+  }
+  
+  .Carousel-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .img-container {
+    height: 350px;
+    width: 600px;
+    // overflow: hidden;    /* hide overflow or all photos will show */
+    position: relative;    /* set to relative so its children, the images, can be absolute */
+  }
+  
+  .Carousel .image {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-size: cover;
+    transition: left .6s; /* transition lets photos slide over smoothly */
+  }
+  
+//   .back_button {
+//     cursor: pointer;
+//     color: white;
+//     padding: 10px 20px;
+//     margin: 10px;
+//     border-radius: 3px;
+//     background-color: $pink;
+//     transition: .4s;
+//   }
+  
+//   .back_button:hover {
+//     color: RGBA(180, 39, 12, 1.00);
+//     background-color: RGBA(235, 203, 175, 1.00);
+//   }

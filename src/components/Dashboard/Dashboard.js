@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import { fetchUserData } from '../../ducks/reducer';
@@ -40,14 +39,14 @@ class Dashboard extends Component {
         })
     }
 
-    
-  //if update home is chosen, state in redux will have to be cleared, then reset... not sure how to do this without adding new home to db
 
     updateHome(id) {
-        axios.put(`/api/updatehome/${id}`)
+        axios.delete(`/api/updatehome/${id}`)
             .then(response => {
                 return response.data 
             })
+        
+        window.location.assign('http://localhost:3000/#/addhome') 
     }
 
     editPhone() {

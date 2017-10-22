@@ -6,7 +6,6 @@ import axios from 'axios';
 import { addHome } from '../../ducks/reducer';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-// import {Redirect} from 'react-router';
 
 
 class Add extends Component {
@@ -26,9 +25,7 @@ class Add extends Component {
             beds: 0,
             img: '',
             title: '',
-            about: '',
-            hasHome: false,
-            redirect: false
+            about: ''
         }
 
     }
@@ -45,28 +42,21 @@ class Add extends Component {
 
     handleInput(val, formProperty) {
         this.setState({
-            [formProperty]: val,
-            hasHome: true
+            [formProperty]: val
         })
     }
 
-    addHome() {
-        const { userid, country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about, hasHome } = this.state;
+    add() {
+        const { userid, country, street, city, state, zip, bathrooms, bedrooms, guests, beds, img, title, about } = this.state;
 
+        this.props.addHome(userid, country, street, state, city, zip, bathrooms, bedrooms, guests, beds, title, about, img);
 
-        this.props.addHome(userid, country, street, state, city, zip, bathrooms, bedrooms, guests, beds, title, about, img, hasHome);
+        window.location.assign('http://localhost:3000/#/dashboard');
 
-        // this.setState({
-        //     redirect: true         //not redirecting!
-        // })
     }
 
 
     render(){
-
-        // if(this.state.redirect) {
-        //     return <Redirect to='/dashboard' />
-        // }
        
         return (
             <div className='add_container'>
@@ -122,7 +112,7 @@ class Add extends Component {
                 </div>
 
                 <div className='add'>
-                    <button className='add_button' onClick={ () => this.addHome() }>Add Your Home!</button>
+                    <button className='add_button' onClick={ () => this.add() }>Add Your Home!</button>
                 </div>
 
                 <Footer />

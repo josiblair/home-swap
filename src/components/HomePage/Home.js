@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-// import Carousel from './Carousel';
+import Carousel from './Carousel';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import logo from '../../white-logo.png';
 
-
-//cannot get carousel to center align
 
 class Home extends Component {
     render(){
@@ -66,7 +64,7 @@ class Home extends Component {
 
                 <div className='stories_main'>
                     <div className='stories_container'>
-                        {/* <Carousel /> */}
+                        <Carousel />
                     </div>
                 </div>
 

@@ -15,7 +15,7 @@ const initialState = {
     title: '',
     about: '',
     img: '',
-    hasHome: false
+    query: ''
    }
 }
 
@@ -24,7 +24,7 @@ const FULFILLED = "_FULFILLED";
 // const REJECTED = '_REJECTED';
 const ADD_HOME = 'ADD_HOME';
 const UPDATE_USER = 'UPDATE_USER';
-const UPDATE_HOME = 'UPDATE_HOME';
+const GET_ALL_HOMES = 'GET_ALL_HOMES';
 // const SENT_MESSAGES = 'SENT_MESSAGES';
 // const RECEIVED_MESSAGES = 'RECEIVED_MESSAGES';
 // const SEND_MESSAGE = 'SEND_MESSAGE';
@@ -33,11 +33,11 @@ const UPDATE_HOME = 'UPDATE_HOME';
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case ADD_HOME + FULFILLED:
-            return Object.assign({}, state, { userid: action.payload.userid, country: action.payload.country, address: action.payload.address, st: action.payload.st, city: action.payload.city, zip: action.payload.zip, bedrooms: action.payload.bedrooms, bathrooms: action.payload.bathrooms, guests: action.payload.guests, title: action.payload.title, about: action.payload.about, img: action.payload.img, hasHome: action.payload.hasHome });
-        case UPDATE_HOME + FULFILLED:
-            return Object.assign({}, state, { userid: action.payload.userid, country: action.payload.country, address: action.payload.address, st: action.payload.st, city: action.payload.city, zip: action.payload.zip, bedrooms: action.payload.bedrooms, bathrooms: action.payload.bathrooms, guests: action.payload.guests, title: action.payload.title, about: action.payload.about, img: action.payload.img});
+            return Object.assign({}, state, { userid: action.payload.userid, country: action.payload.country, address: action.payload.address, st: action.payload.st, city: action.payload.city, zip: action.payload.zip, bedrooms: action.payload.bedrooms, bathrooms: action.payload.bathrooms, beds: action.payload.beds, guests: action.payload.guests, title: action.payload.title, about: action.payload.about, img: action.payload.img, hasHome: action.payload.hasHome });
         case UPDATE_USER + FULFILLED:
             return Object.assign({}, state, { userData: action.payload });
+        case GET_ALL_HOMES + FULFILLED:
+            return Object.assign({}, state, { query: action.payload });
         // case SENT_MESSAGES + FULFILLED:
         //     return Object.assign( {}, state, { sentMessages: [...state.sentMessages, action.payload] } )
         // case RECEIVED_MESSAGES + FULFILLED:
@@ -49,26 +49,13 @@ export default function reducer(state = initialState, action) {
     }
 }
 
-
-//does not yet redirect back to profile after adding home
-export function addHome(userid, country, address, st, city, zip, bathrooms, bedrooms, guests, beds, title, about, img, hasHome) {
+export function addHome(userid, country, address, st, city, zip, bathrooms, bedrooms, guests, beds, title, about, img) {
     axios.post('/addhome', {user_id: userid, country: country, address: address, state: st, city: city, zip: zip, bathrooms: bathrooms, bedrooms: bedrooms, guests: guests, beds: beds, title: title, about_body: about, img: img  })
         .then(results => {
             return results;
         })
     return {
         type: ADD_HOME,
-        payload: { userid, country, address, st, city, zip, bathrooms, bedrooms, guests, beds, title, about, img, hasHome }
-    }
-}
-
-export function updateHome(userid, country, address, st, city, zip, bathrooms, bedrooms, guests, beds, title, about, img) {
-    axios.put('/updatehome', {user_id: userid, country: country, address: address, state: st, city: city, zip: zip, bathrooms: bathrooms, bedrooms: bedrooms, guests: guests, beds: beds, title: title, about_body: about, img: img})
-         .then( results => {
-             return results;
-         })
-    return {
-        type: UPDATE_HOME,
         payload: { userid, country, address, st, city, zip, bathrooms, bedrooms, guests, beds, title, about, img }
     }
 }
@@ -77,7 +64,6 @@ export function fetchUserData(id) {
     const userData = axios.get(`http://localhost:3005/displaymyhome/${id}`)
 
     .then(response => {
-        console.log(response.data)
             return response.data  
         })
          return {
@@ -86,6 +72,18 @@ export function fetchUserData(id) {
          }
     
 }
+
+export function getSearchedHomes(query) {
+    const homes = axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?${process.env.API_ACCESS_TOKEN}` )
+        .then( response => {
+            console.log('searched:',response);                  
+   })
+   return {
+       type: GET_ALL_HOMES,
+       payload: homes
+   }
+}
+
 
 // export function sendMessage(senderId, receiverId, messageBody) {
 //     const messages = axios.post('/sendmessage', { senderId: senderId, receiverId: receiverId, messageBody: messageBody })

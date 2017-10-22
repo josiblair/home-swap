@@ -20,23 +20,16 @@ module.exports= {
         const db = req.app.get('db');
         const id = req.params.id;
     
-        db.display_my_home([id]).then( home => {
+        db.display_my_home([id]).then( home => { 
             res.send(home[0]);
         })
     },
 
     searchedHomes: (req, res) => {
         const db = req.app.get('db');
-        console.log(req.params);
-        //query = req.params
+        console.log(req);
 
-        // axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${this.state.query}.json?${process.env.API_ACCESS_TOKEN}`)
-        //    .then( response => {
-        //        res.status(200).response.data
-        //    })
-       
-
-        db.searched_homes().then( homes => {
+        db.searched_homes().then( homes => { //need to get searched item as parameter
             res.send(homes);
         })
     },
@@ -44,9 +37,8 @@ module.exports= {
     updateHome: (req, res) => {
         const db=req.app.get('db');
         const id=req.params.id;
-        const home = req.body;
     
-        db.update_home([id, home.country, home.address, home.state, home.city, home.zip, home.bathrooms, home.bedrooms, home.guests, home.bed, home.title, home.about_body, home.img])
-        .then( (results) => res.send(results[0]) );  
+        db.update_home([id])
+        .then( () => res.send() );  
     }
 }

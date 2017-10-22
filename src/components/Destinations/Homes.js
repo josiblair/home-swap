@@ -3,6 +3,8 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import axios from 'axios';
 import './Homes.css';
+import {connect} from 'react-redux';
+import {getSearchedHomes} from '../../ducks/reducer';
 
 class Homes extends Component {
     constructor(){
@@ -28,18 +30,22 @@ class Homes extends Component {
     }
 
     handleSearch() {
-        axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.state.query}.json?${process.env.API_ACCESS_TOKEN}` )
-        .then( response => {
-            console.log(response) //successfully displays objects with the ^^^ query in console log :) still need to app.get to get all homes with matching location... possibly another axios.get to display homes containing query..?!                    
-       })
+        this.props.getSearchedHomes(this.state.query);
+        
+        axios.get('/searchedhomes')
+             .then( res => {
+                 console.log(res.data)
+             })
     }
 
     render() {
 
         // const homes = res.data.map( (home, i) => {
-        //     <div key={i} className='home_container'>
-        //     </div>
-        // })
+        //             return <div key={i} className='homes'> 
+        //             <img src={home.img} alt='' />
+        //             <span>{home.title}</span>
+        //             <span>{home.city}, {home.country}</span>
+        //         </div>
 
         return(
             <div className='homes_container'>
@@ -61,4 +67,6 @@ class Homes extends Component {
     }
 }
 
-export default Homes;
+
+
+export default connect(null, {getSearchedHomes})(Homes);

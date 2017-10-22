@@ -76,7 +76,7 @@ app.get('/auth/logout', (req, res) => {
 app.post( '/addhome', hc.addHome )
 app.get( '/displayall', hc.displayAll )
 app.get( '/displaymyhome/:id', hc.displayMyHome )
-app.get( '/searchhomes', hc.searchedHomes )
+app.get( '/searchedhomes', hc.searchedHomes )
 app.delete( '/api/updatehome/:id', hc.updateHome )
 
 //--------------------------------------------------

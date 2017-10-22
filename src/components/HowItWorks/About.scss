@@ -78,23 +78,26 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     background-color: $pink;
     width: 40%;
     color: white;
-    padding: $margin;
+    padding: $margin + 10px;
     padding-left: $margin + 20px;
     position: absolute;
     h2 {
         font-family: $header-font;
+        color: white;
+        margin-bottom: $margin;
     }
     p {
         font-family: $body-font;
         font-size: $font-size + 2px;
+        margin-left: $margin + 9px;
     }
 }
 
 .left {
-    left: 290px;
+    left: 350px;
 }
 .right {
-    right: 290px;
+    right: 350px;
 }
 
 .view_button {
@@ -109,4 +112,10 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     font-size: $font-size + 2px;
     box-shadow: $shadow;
     margin: $margin + 20px;
+}
+
+.view_button:hover {
+    background-color: $pink;
+    border: 1px solid $pink;
+    color: white;
 }
