@@ -32,7 +32,7 @@ class Carousel extends Component {
     
       goBack() {
         this.resetInterval(); // reset interval so timer starts over
-        let { counter, images, direction } = this.state;
+        let { counter, images } = this.state;
         if (counter === 0) counter = images.length - 1;
         else counter--;
         this.setState({counter, direction: 'back'})
@@ -40,7 +40,7 @@ class Carousel extends Component {
     
       goForward() {
         this.resetInterval(); // reset interval so timer starts over
-        let { counter, images, direction } = this.state;
+        let { counter, images } = this.state;
         if (counter >= images.length - 1) counter = 0;
         else counter++;
         this.setState({counter, direction: 'forward'})
@@ -53,7 +53,7 @@ class Carousel extends Component {
         // as counter changes, photos with index less than counter are positioned left
         // photos with index greater than counter are positioned right
         const left = (
-          index === counter -1 || counter === 0 && index === images.length -1 ? '-700px'
+          (index === counter -1 || (counter === 0 && index === images.length -1)) ? '-700px'
           : index === counter ? '0px'
           : '700px'
         )

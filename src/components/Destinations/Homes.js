@@ -4,14 +4,16 @@ import Footer from '../Footer/Footer';
 import axios from 'axios';
 import './Homes.css';
 import {connect} from 'react-redux';
-import {getSearchedHomes} from '../../ducks/reducer';
+import {getSearchedHomesByCity} from '../../ducks/reducer';
 
 class Homes extends Component {
     constructor(){
         super() 
 
         this.state = {
-            query: ''
+            country: '',
+            city: '',
+            homes: []
         }
 
     }
@@ -19,18 +21,28 @@ class Homes extends Component {
     componentDidMount(){
         axios.get('/displayall')
              .then( res => {
-                 console.log(res.data)  //currently displaying all homes as array of objects in console :) just don't know how to go about displaying the data in my jsx :(
-             })                         //do i need to map over array objects then display them that way??
+                this.setState({
+                    homes: res.data
+                })
+            })                         
     }
 
-    handleQueryChange(val){
+    handleCountryChange(val){
         this.setState({
-            query: val
+            country: val
+        })
+    }
+
+    handleCityChange(val){
+        this.setState({
+            city: val
         })
     }
 
     handleSearch() {
-        this.props.getSearchedHomes(this.state.query);
+        this.state.city && this.state.country ? 
+        this.props.getSearchedHomesByCity(this.state.country, this.state.city) 
+        : alert('Please enter both a valid Country & City to search through the homes');
         
         axios.get('/searchedhomes')
              .then( res => {
@@ -39,25 +51,33 @@ class Homes extends Component {
     }
 
     render() {
-
-        // const homes = res.data.map( (home, i) => {
-        //             return <div key={i} className='homes'> 
-        //             <img src={home.img} alt='' />
-        //             <span>{home.title}</span>
-        //             <span>{home.city}, {home.country}</span>
-        //         </div>
+        //add onclick function to each 'homes' div 
+        //"let's swap" button needs to send notification/message to user
+        const homes = this.state.homes.map( (home, i) => {
+            return <div key={i} className='homes'>             
+                <img className='home_img' src={home.img} alt='' />
+                <span className='home_title'>{home.title}</span>
+                <span className='home_address'>{home.city}, {home.country}</span>
+                <button className='swap_button'>Let's Swap!</button>
+            </div>
+        })
 
         return(
             <div className='homes_container'>
                 <Nav />
-                <div className='search_container'>
+                <div className='homes_header'>
                     <span className='stay'>I'd Like to Stay In...</span>
-                    <input className='search_input' placeholder='e.g. Australia, New York City, Paris' onChange={ e => this.handleQueryChange(e.target.value)}/>
-                    <button className='search_button' onClick={ () => this.handleSearch() }>Search</button>
+                    <div className='search_container'>
+                        <span className='sub_stay'>Country:</span>
+                        <input className='search_input' placeholder='e.g. Australia, France, Thailand' onChange={ e => this.handleCountryChange(e.target.value)}/>
+                        <span className='sub_stay'>City:</span>
+                        <input className='search_input' placeholder='e.g. New York City, Rome, Beijing' onChange={ e => this.handleCityChange(e.target.value)}/>
+                        <button className='search_button' onClick={ () => this.handleSearch() }>Search</button>
+                    </div>
                 </div>
 
                 <div className='homes_list'>
-                    
+                    { homes }
                 </div>
 
                 <Footer />
@@ -69,4 +89,4 @@ class Homes extends Component {
 
 
 
-export default connect(null, {getSearchedHomes})(Homes);
+export default connect(null, {getSearchedHomesByCity})(Homes);

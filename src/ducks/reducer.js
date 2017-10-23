@@ -15,16 +15,14 @@ const initialState = {
     title: '',
     about: '',
     img: '',
-    query: ''
+    searchedCity: []
    }
 }
 
 const FULFILLED = "_FULFILLED";
-// const PENDING = "_PENDING";
-// const REJECTED = '_REJECTED';
 const ADD_HOME = 'ADD_HOME';
 const UPDATE_USER = 'UPDATE_USER';
-const GET_ALL_HOMES = 'GET_ALL_HOMES';
+const GET_SEARCHED_HOMES = 'GET_SEARCHED_HOMES';
 // const SENT_MESSAGES = 'SENT_MESSAGES';
 // const RECEIVED_MESSAGES = 'RECEIVED_MESSAGES';
 // const SEND_MESSAGE = 'SEND_MESSAGE';
@@ -36,8 +34,8 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { userid: action.payload.userid, country: action.payload.country, address: action.payload.address, st: action.payload.st, city: action.payload.city, zip: action.payload.zip, bedrooms: action.payload.bedrooms, bathrooms: action.payload.bathrooms, beds: action.payload.beds, guests: action.payload.guests, title: action.payload.title, about: action.payload.about, img: action.payload.img, hasHome: action.payload.hasHome });
         case UPDATE_USER + FULFILLED:
             return Object.assign({}, state, { userData: action.payload });
-        case GET_ALL_HOMES + FULFILLED:
-            return Object.assign({}, state, { query: action.payload });
+        case GET_SEARCHED_HOMES + FULFILLED:
+            return Object.assign({}, state, { searchedCity: action.payload });
         // case SENT_MESSAGES + FULFILLED:
         //     return Object.assign( {}, state, { sentMessages: [...state.sentMessages, action.payload] } )
         // case RECEIVED_MESSAGES + FULFILLED:
@@ -73,13 +71,13 @@ export function fetchUserData(id) {
     
 }
 
-export function getSearchedHomes(query) {
-    const homes = axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?${process.env.API_ACCESS_TOKEN}` )
+export function getSearchedHomesByCity(country, city) {
+    const homes = axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/'${city}'.json?${process.env.API_ACCESS_TOKEN}&country=${country}` )
         .then( response => {
-            console.log('searched:',response);                  
+            console.log('searched:',response);    //return latitude/longitude of city??              
    })
    return {
-       type: GET_ALL_HOMES,
+       type: GET_SEARCHED_HOMES,
        payload: homes
    }
 }
