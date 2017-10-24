@@ -20,11 +20,11 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .dash_body {
-    height: 65vh;
+    height: 70vh;
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-around;
     margin: $margin;
 }
 
@@ -71,31 +71,38 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-left: 70px;
-}
-
-.likes_box {
-    border: $border;
-    height: 15vh;
-    width: 50vw;
-    margin-bottom: 50px;
 }
 
 .message_box {
+    margin-top: $margin;
     border: $border;
-    height: 30vh;
-    width: 50vw;
+    height: 63vh;
+    width: 35vw;
 }
 
 .dash_head {
     color: $pink;
     font-family: $header-font;
     font-size: $font-size + 5px;
+    margin-bottom: $margin;
 }
 
 .my_home {
-    margin-left: 70px;
-    margin-right: $margin;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: $margin;  
+    h3 {
+        color: $gunmetal;
+        font-family: $body-font;
+        font-size: $font-size + 5px;
+    }
+    h4 {
+        color: $pink;
+        font-family: $body-font;
+        font-size: $font-size;
+        margin-bottom: $margin * 2;
+    }
 }
 
 .remove_button {
@@ -104,9 +111,10 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     border: none;
     border-radius: 3px;
     color: white;
-    padding: 3px 10px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     font-size: $font-size - 3px;
     box-shadow: $shadow;
+    margin: auto;
 }

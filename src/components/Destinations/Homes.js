@@ -62,7 +62,6 @@ class Homes extends Component {
                     <i className="fa fa-bed icon" aria-hidden="true"> <span className='icon_nums'>{home.beds}</span> </i>
                     <i className="fa fa-bath icon" aria-hidden="true"> <span className='icon_nums'>{home.bathrooms}</span> </i>
                     <i className="fa fa-users icon" aria-hidden="true"> <span className='icon_nums'>{home.guests}</span> </i>
-                    {/* <Link to='/' className='swap_button'>Details</Link> */}
                 </div>
             </div>
         })

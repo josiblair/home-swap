@@ -84,9 +84,8 @@ app.delete( '/api/updatehome/:id', hc.updateHome )
 
 
 //MESSAGES ENDPOINTS
-// app.post( '/sendmessage', mc.sendMessage );
-// app.get( '/sentmessages/:id', mc.sentMessages );
-// app.get( '/receivedmessages/:id', mc.receivedMessages );
+app.post( '/sendmessage', mc.sendMessage );
+app.get(`/getmessages/:id`, mc.getAllMessages )
 
 //--------------------------------------------------
 

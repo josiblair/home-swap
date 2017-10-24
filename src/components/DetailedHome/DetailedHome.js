@@ -3,36 +3,50 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import axios from 'axios';
 import './DetailedHome.css';
-
+import {connect} from 'react-redux';
+import {sendMessage} from '../../ducks/reducer';
 
 class DetailedHome extends Component {
     constructor() {
         super()
 
         this.state = {
-            home: {}
+            home: {},
+            userId: null
         }
     }
 
-    //"let's swap" button needs to send notification/message to user
-    componentDidMount(props) {
-        //{props.match.params.id} --> equal to the id passed into the url
+    //{props.match.params.id} --> equal to the id passed into the url
+
+    componentDidMount() {
         const homeId = this.props.match.params.id;
         axios.get(`/displayonehome/${homeId}`)
              .then( home => {
                  this.setState({
                      home: home.data
                  })
-             })
+             });
+
+        axios.get('/auth/me').then( res => {
+            this.setState({
+                userId: res.data.id
+            })
+        })
     }
 
-    handleSwapClick() {
-        //send message to user and redirect them to a 'thank you' page with another button to keep searching homes
+    initiateMessage(home) {
+        const messageBody = `Hi there! I am interested in swapping homes with you! Take a look at my home and let me know what you think!`
+        
+        return !this.state.userId ? 
+         alert('You must sign up or log in to swap homes!') :
+         (this.props.sendMessage(this.state.userId, this.state.home.user_id, messageBody ),
+         alert('Thank You for your interest! We have sent a message to the homeowner for you.'))
     }
 
     render() {
 
         const { country, state, city, bathrooms, guests, bedrooms, title, about_body, img } = this.state.home;
+        const userHome = `http://localhost:3000/#/displayhome/${this.state.userId}`
 
         return (
             <div>
@@ -66,9 +80,9 @@ class DetailedHome extends Component {
                     <div className='dummy_container'></div>
                 </div>
                 <div className='user'>
-                        <span>Want to talk more details about swapping with this home? </span>
+                        <span>Are you ready to swap or want to talk more details about swapping with this home? </span>
                         <span>Let the homeowner know!</span>
-                        <button onClick={ () => this.handleSwapClick }>I Want To Swap!</button>
+                        <button onClick={ () => this.initiateMessage(userHome) }>Let's Talk Details!</button>
                 </div>
                 <Footer />
             </div>
@@ -76,4 +90,5 @@ class DetailedHome extends Component {
     }
 }
 
-export default DetailedHome;
+
+export default connect(null, {sendMessage})(DetailedHome);

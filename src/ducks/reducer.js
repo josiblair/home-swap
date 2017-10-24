@@ -15,6 +15,8 @@ const initialState = {
     title: '',
     about: '',
     img: '',
+    sentMessages: [],
+    receivedMessages: [],
     searchedCity: []
    }
 }
@@ -23,9 +25,10 @@ const FULFILLED = "_FULFILLED";
 const ADD_HOME = 'ADD_HOME';
 const UPDATE_USER = 'UPDATE_USER';
 const GET_SEARCHED_HOMES = 'GET_SEARCHED_HOMES';
+const SEND_MESSAGE = 'SEND_MESSAGE';
 // const SENT_MESSAGES = 'SENT_MESSAGES';
 // const RECEIVED_MESSAGES = 'RECEIVED_MESSAGES';
-// const SEND_MESSAGE = 'SEND_MESSAGE';
+
 
 
 export default function reducer(state = initialState, action) {
@@ -36,12 +39,12 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { userData: action.payload });
         case GET_SEARCHED_HOMES + FULFILLED:
             return Object.assign({}, state, { searchedCity: action.payload });
+        case SEND_MESSAGE + FULFILLED:
+            return state;
         // case SENT_MESSAGES + FULFILLED:
         //     return Object.assign( {}, state, { sentMessages: [...state.sentMessages, action.payload] } )
         // case RECEIVED_MESSAGES + FULFILLED:
         //     return Object.assign( {}, state, { receivedMessages: [...state.receivedMessages, action.payload] } );
-        // case SEND_MESSAGE + FULFILLED:
-        //     return Object.assign( {}, state, { sentMessages: [...state.sentMessages, action.payload] } );
         default:
             return state;
     }
@@ -83,16 +86,15 @@ export function getSearchedHomesByCity(country, city) {
 }
 
 
-// export function sendMessage(senderId, receiverId, messageBody) {
-//     const messages = axios.post('/sendmessage', { senderId: senderId, receiverId: receiverId, messageBody: messageBody })
-//                           .then( messages => {
-//                               return messages.data;
-//                           })
-//         return {
-//             type: SEND_MESSAGE,
-//             payload: messages
-//         }
-// }
+export function sendMessage(senderId, receiverId, messageBody) {
+        axios.post('/sendmessage', { senderId: senderId, receiverId: receiverId, messageBody: messageBody })
+                          .then( message => {
+                              return message.data;
+                          })
+        return {
+            type: SEND_MESSAGE
+        }
+}
 
 // export function sentMessages(senderId) {
 //     const messages = axios.get(`/sentmessages/${senderId}`)

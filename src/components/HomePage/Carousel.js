@@ -4,6 +4,9 @@ import beach from '../../beach.jpg';
 import country from '../../scotland.jpg';
 import ski from '../../ski.jpg';
 import city from '../../city.jpg';
+import doors from '../../doors.jpg';
+import image1 from '../../header-img2.jpg';
+import image2 from '../../home-img5.jpg';
 
 let auto; // variable for storing setInterval ID
 const timer = 4000; // timer for interval
@@ -13,7 +16,7 @@ class Carousel extends Component {
     constructor() {
         super()
         this.state = { 
-          images: [beach, country, ski, city],
+          images: [beach, country, ski, city, doors, image1, image2],
           counter: 1,
           direction: 'forward'
         }

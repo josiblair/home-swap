@@ -5,6 +5,7 @@ import { fetchUserData } from '../../ducks/reducer';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import './Dashboard.css';
+import Messages from '../Messages/Messages';
 
 
 class Dashboard extends Component {
@@ -19,7 +20,8 @@ class Dashboard extends Component {
             email: '',
             userid: null,
             editEmail: false,
-            editPhone: false
+            editPhone: false,
+            messages: []
         }
     }
 
@@ -28,13 +30,18 @@ class Dashboard extends Component {
     componentDidMount() {
         axios.get('/auth/me').then(res => {
             this.props.fetchUserData(res.data.id);
+   
+            axios.get(`/getmessages/${res.data.id}`).then( messages => {
+                console.log(messages)
 
-            this.setState({
-                userImg: res.data.img,
-                firstName: res.data.first_name,
-                lastName: res.data.last_name,
-                email: res.data.email,
-                userid: res.data.id
+                this.setState({
+                    userImg: res.data.img,
+                    firstName: res.data.first_name,
+                    lastName: res.data.last_name,
+                    email: res.data.email,
+                    userid: res.data.id,
+                    messages: messages.data
+                })
             })
         })
     }
@@ -120,14 +127,12 @@ class Dashboard extends Component {
                     </div>
 
                     <div className='main_body'>
-                        <div className='likes'>
-                            <span className='dash_head'>Recently Liked Your Home:</span>
-                            <div className='likes_box'></div>
-                        </div>
 
                         <div className='messages'>
                             <span className='dash_head'>Messages:</span>
-                            <div className='message_box'></div>
+                            <div className='message_box'>
+                                <Messages userInfo={this.state} />
+                            </div>
                         </div>
 
                     </div>
@@ -136,6 +141,7 @@ class Dashboard extends Component {
                             <span className='dash_head'>My Home:</span>
                             { this.displayHome() }
                     </div>
+                    
                 </div>
 
                 <Footer />
