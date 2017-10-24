@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One');
+
+$header-font: 'Fjalla One', sans-serif;
+$body-font: 'Cantarell', sans-serif;
+$font-color: #333;
+$font-size: 16px;
+$pink: #E14658;
+$gunmetal: #22252C;
+$gray: lightgray;
+$border: 1px solid $gunmetal;
+$margin: 10px;
+$logo-height: 60px;
+$logo-width: 130px;
+$shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+.chosen_home {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.detail {
+    width: 60%;
+}
+
+.dummy_container {
+    height: 30vh;
+    width: 25%;
+}
+
+.user {
+    position: fixed;
+    top: 155px;
+    right: 50px;
+    height: 30vh;
+    width: 25%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-family: $header-font;
+    font-size: $font-size + 4px;
+    color: $gunmetal;
+    border: $border;
+    button {
+        font-family: $body-font;
+        background-color: $pink;
+        border: none;
+        border-radius: 3px;
+        color: white;
+        padding: 13px 27px;
+        text-align: center;
+        text-decoration: none;
+        font-size: $font-size + 2px;
+        box-shadow: $shadow;
+    }
+}
+
+.detail_header {
+    height: 18vh;
+    background-color: $pink;
+    margin-bottom: $margin;
+}
+
+.detail_img {
+    width: 100%;
+    margin-bottom: $margin;
+    border: $border;
+}
+
+.detail_title {
+    font-family: $header-font;
+    font-size: $font-size + 15px;
+    color: $gunmetal;
+}
+
+.location {
+    display: flex;
+    flex-direction: row;
+    font-family: $body-font;
+    font-size: $font-size + 3px;
+    color: $pink;
+    margin-top: $margin;
+    margin-bottom: $margin * 4;
+    div {
+        margin-right: $margin;
+    }
+}
+
+.detail_icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: $margin 0px;
+}
+
+.detail_icon {
+    margin-right: $margin * 4;
+    color: $pink;
+}
+
+.detail_icon_nums {
+    color: $gunmetal;
+    margin-left: $margin;
+    font-family: $body-font;
+    font-size: $font-size + 7px;
+}
+
+.detail_about {
+    display: flex;
+    flex-direction: column;
+    margin: $margin * 4 0px;
+}
+
+.detail_about_header {
+    font-family: $header-font;
+    font-size: $font-size + 10px;
+    color: $gunmetal;
+}
+
+.detail_about_body {
+    font-family: $body-font;
+    font-size: $font-size + 2px;
+    color: $gunmetal;
+    margin-top: $margin;
+}

@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Contact from './components/Contact/Contact';
 import HowItWorks from './components/HowItWorks/About';
 import Destinations from './components/Destinations/Homes';
+import DetailedHome from './components/DetailedHome/DetailedHome';
 
 
 //current componentDidMount() shows successful api request for information on specific query (when query is entered)
@@ -33,6 +34,7 @@ class App extends Component {
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/addhome' component={AddHome} />
             <Route path='/about' component={HowItWorks} />
+            <Route path='/displayhome/:id' component={DetailedHome} />
           </Switch>
         </HashRouter>
       </div>

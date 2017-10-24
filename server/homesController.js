@@ -25,6 +25,15 @@ module.exports= {
         })
     },
 
+    displayOne: (req, res) => {
+        const db = req.app.get('db');
+        const id = req.params.id;
+
+        db.display_one_home([id]).then( home => {
+            res.send(home[0]);
+        })
+    },
+
     searchedHomes: (req, res) => {
         const db = req.app.get('db');
         console.log(req);

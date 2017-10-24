@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import './Homes.css';
 import {connect} from 'react-redux';
@@ -51,14 +52,18 @@ class Homes extends Component {
     }
 
     render() {
-        //add onclick function to each 'homes' div 
-        //"let's swap" button needs to send notification/message to user
+        
         const homes = this.state.homes.map( (home, i) => {
             return <div key={i} className='homes'>             
                 <img className='home_img' src={home.img} alt='' />
-                <span className='home_title'>{home.title}</span>
+                <Link to={`/displayhome/${home.user_id}`} className='home_title'> {home.title} </Link>
                 <span className='home_address'>{home.city}, {home.country}</span>
-                <button className='swap_button'>Let's Swap!</button>
+                <div className='icons'>
+                    <i className="fa fa-bed icon" aria-hidden="true"> <span className='icon_nums'>{home.beds}</span> </i>
+                    <i className="fa fa-bath icon" aria-hidden="true"> <span className='icon_nums'>{home.bathrooms}</span> </i>
+                    <i className="fa fa-users icon" aria-hidden="true"> <span className='icon_nums'>{home.guests}</span> </i>
+                    {/* <Link to='/' className='swap_button'>Details</Link> */}
+                </div>
             </div>
         })
 

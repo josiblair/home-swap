@@ -91,4 +91,69 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     height: 40%;
     width: 30%;
     min-width: 250px;
+    display: flex;
+    flex-direction: column;
 }
+
+.home_img {
+    border: $border;
+    height: 65%;
+    width: 100%;
+}
+
+.home_title {
+    text-decoration: none;
+    font-family: $header-font;
+    font-size: $font-size + 7px;
+    color: $gunmetal;
+    margin-left: $margin;
+    margin-top: 4px;
+}
+
+.home_address {
+    font-family: $body-font;
+    font-size: $font-size;
+    color: $pink;
+    // color: $gunmetal;
+    margin-left: $margin;
+    margin-bottom: $margin;
+}
+
+.icons {
+    margin-top: 5px;
+    margin-left: $margin;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: $gunmetal;
+}
+
+.icon {
+    margin-right: $margin + 30px;
+}
+
+.icon_nums {
+    font-family: $body-font;
+    font-size: $font-size + 2px;
+    margin-left: $margin;
+}
+
+// .swap_button {
+//     text-decoration: none;
+//     font-family: $body-font;
+//     font-size: $font-size - 2px;
+//     align-self: flex-end;
+//     margin-bottom: 5px;
+//     border: 1px solid $pink;
+//     border-radius: 3px;
+//     background-color: white;
+//     color: $pink;
+//     padding: 2px 7px;
+//     font-weight: bold;
+//     box-shadow: 0 5px 3px 0 rgba(0, 0, 0, 0.15), 0 5px 3px 0 rgba(0, 0, 0, 0.1);
+// }
+
+// .swap_button:hover {
+//     background-color: $pink;
+//     color: white;
+// }
