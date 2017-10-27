@@ -40,8 +40,6 @@ class Messages extends Component {
 
     render(){
 
-        console.log(this.props);
-
         const messages = this.props.userInfo.messages.map( (message, i) => { 
            
             if(this.props.userInfo.userid !== message.sender_id) { 
@@ -53,7 +51,7 @@ class Messages extends Component {
                 {!this.state.showInput ?
                 <div>
                 <button onClick={ () => this.reply(message.sender_id, message.receiver_id) } className='message_buttons'>Reply</button>
-                <button onClick={ () => this.props.denyInterest(message.message_id, this.props.userInfo.userid)} className='message_buttons'>Not Interested</button>
+                <button onClick={ () => this.props.denyInterest(message.message_id, this.props.userInfo.userid)} className='message_buttons'>Delete</button>
                 </div> 
                 :
                 <div>

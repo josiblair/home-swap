@@ -51,7 +51,6 @@ class Dashboard extends Component {
              .then( res => {
                  axios.get(`/getmessages/${userid}`)
                       .then( messages => {
-                          console.log(messages)
                           this.setState({
                               messages: messages.data
                           })
