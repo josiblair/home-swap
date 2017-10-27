@@ -5,6 +5,7 @@ import axios from 'axios';
 import './DetailedHome.css';
 import {connect} from 'react-redux';
 import {sendMessage} from '../../ducks/reducer';
+import swal from 'sweetalert';
 
 class DetailedHome extends Component {
     constructor() {
@@ -38,9 +39,9 @@ class DetailedHome extends Component {
         const messageBody = `Hi there! I am interested in swapping homes with you! Take a look at my home and let me know what you think!`
         
         return !this.state.userId ? 
-         alert('You must sign up or log in to swap homes!') :
+         swal('Sorry...','You must sign up or log in to swap homes!','error') :
          (this.props.sendMessage(this.state.userId, this.state.home.user_id, messageBody ),
-         alert('Thank You for your interest! We have sent a message to the homeowner for you.'))
+         swal('Thank you!','Thank You for your interest in this home! We have sent a message to the homeowner for you.', 'success'))
     }
 
     render() {
