@@ -36,9 +36,9 @@ module.exports= {
 
     searchedHomes: (req, res) => {
         const db = req.app.get('db');
-        console.log(req);
+        const {country, city} = req.params
 
-        db.searched_homes().then( homes => { //need to get searched item as parameter --> is there a way to make multiple calls to db with this one function?
+        db.searched_homes(country, city).then( homes => { //need to get searched item as parameter --> is there a way to make multiple calls to db with this one function?
             res.send(homes);
         })
     },

@@ -1,39 +1,76 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {sendMessage} from '../../ducks/reducer';
+import './Messages.css';
 
+class Messages extends Component {
+    constructor() {
+        super()
 
-//PROPS
-// userInfo:
-//     editEmail:false
-//     editPhone:false
-//     email:"josib.moore@gmail.com"
-//     firstName:"Josi"
-//     lastName:"Moore"
-//     messages:Array(3)
-//         0:{message_id: 9, sender_id: 2, receiver_id: 3, message_body: "Hi there! I am interested in swapping homes with y… you think! http://localhost:3000/#/displayhome/2"}
-//         1:{message_id: 10, sender_id: 3, receiver_id: 5, message_body: "Hi there! I am interested in swapping homes with y… you think! http://localhost:3000/#/displayhome/3"}
-//         2:{message_id: 12, sender_id: 1, receiver_id: 3, message_body: "Hi there! I am interested in swapping homes with y… you think! http://localhost:3000/#/displayhome/1"}
-//     phone:""
-//     userImg:"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg"
-//     userid:3
-
-export default (props) => {
-    
-    const messages = props.userInfo.messages.map( (message, i) => {
-        
-        if(props.userInfo.userid !== message.sender_id) { 
-            const link = `localhost:3000/#/displayhome/${message.sender_id}`
-        
-            return <div key={i} className='message'>
-            <div>{message.message_body}</div>
-            <a href={link} target='_blank'>My Home</a>
-            <button>Reply</button>
-        </div>
+        this.state = {
+            messageBody: '',
+            senderId: null,
+            receiverId: null,
+            showInput: false
         }
-    })
+    }
 
-    return(
-        <div className='messages_container'>
-            {messages}
-        </div>
-    )
-} 
+
+    reply(senderId, receiverId) {
+        this.setState({
+            senderId: senderId,
+            receiverId: receiverId,
+            showInput: true
+        })
+    }
+
+    send(senderId, receiverId) {
+        this.props.sendMessage(receiverId, senderId, this.state.messageBody)
+
+        this.setState({
+            showInput: false
+        })
+    }
+
+    handleInput(val) {
+        this.setState({
+            messageBody: val
+        })
+    }
+
+    render(){
+
+        console.log(this.props);
+
+        const messages = this.props.userInfo.messages.map( (message, i) => { 
+           
+            if(this.props.userInfo.userid !== message.sender_id) { 
+                const link = `localhost:3000/#/displayhome/${message.sender_id}`
+            
+                return <div key={i} className='message'>
+                <div className='message_body'>{message.message_body}</div>
+                <a href={link} target='_blank' className='home_link'>See Home</a>
+                {!this.state.showInput ?
+                <div>
+                <button onClick={ () => this.reply(message.sender_id, message.receiver_id) } className='message_buttons'>Reply</button>
+                <button onClick={ () => this.props.denyInterest(message.message_id, this.props.userInfo.userid)} className='message_buttons'>Not Interested</button>
+                </div> 
+                :
+                <div>
+                <input onChange={ (e) => this.handleInput(e.target.value)} className='message_input' />
+                <button onClick={ () => this.send(message.sender_id, message.receiver_id) } className='message_buttons'>Send</button>
+                </div>
+                }
+            </div>
+            }
+        })
+
+        return(
+            <div className='messages_container'>
+                {messages}
+            </div>
+        )
+    } 
+}
+
+export default connect(null, {sendMessage})(Messages);

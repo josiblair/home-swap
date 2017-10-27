@@ -23,6 +23,8 @@ class Dashboard extends Component {
             editPhone: false,
             messages: []
         }
+
+        this.denyInterest = this.denyInterest.bind(this);
     }
 
      //if user has a home, stay on dashboard, otherwise redirect to AddHome component
@@ -32,8 +34,6 @@ class Dashboard extends Component {
             this.props.fetchUserData(res.data.id);
    
             axios.get(`/getmessages/${res.data.id}`).then( messages => {
-                console.log(messages)
-
                 this.setState({
                     userImg: res.data.img,
                     firstName: res.data.first_name,
@@ -46,6 +46,18 @@ class Dashboard extends Component {
         })
     }
 
+    denyInterest(messageId, userid) {
+        axios.delete(`/deletemessage/${messageId}`)
+             .then( res => {
+                 axios.get(`/getmessages/${userid}`)
+                      .then( messages => {
+                          console.log(messages)
+                          this.setState({
+                              messages: messages.data
+                          })
+                      })
+             })
+    }
 
     updateHome(id) {
         axios.delete(`/api/updatehome/${id}`)
@@ -106,10 +118,6 @@ class Dashboard extends Component {
     
     render() {
 
-        // if(!this.props.userData.hasHome) {         //redirecting, but redirecting regardless if I have a home or not
-        //     return <Redirect to='/addhome' />
-        // }
-
         return (
             <div className='profile_container'>
                 <Nav />
@@ -131,7 +139,8 @@ class Dashboard extends Component {
                         <div className='messages'>
                             <span className='dash_head'>Messages:</span>
                             <div className='message_box'>
-                                <Messages userInfo={this.state} />
+                                <Messages userInfo={this.state} denyInterest={this.denyInterest} />
+
                             </div>
                         </div>
 

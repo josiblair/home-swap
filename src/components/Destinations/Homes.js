@@ -4,8 +4,8 @@ import Footer from '../Footer/Footer';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import './Homes.css';
-import {connect} from 'react-redux';
-import {getSearchedHomesByCity} from '../../ducks/reducer';
+// import {connect} from 'react-redux';
+// import {getSearchedHomesByCity} from '../../ducks/reducer';
 
 class Homes extends Component {
     constructor(){
@@ -14,9 +14,12 @@ class Homes extends Component {
         this.state = {
             country: '',
             city: '',
-            homes: []
+            homes: [],
+            currentPage: 1,
+            homesPerPage: 6
         }
-
+        
+        this.handlePageClick = this.handlePageClick.bind(this);
     }
 
     componentDidMount(){
@@ -41,19 +44,34 @@ class Homes extends Component {
     }
 
     handleSearch() {
-        this.state.city && this.state.country ? 
-        this.props.getSearchedHomesByCity(this.state.country, this.state.city) 
-        : alert('Please enter both a valid Country & City to search through the homes');
-        
-        axios.get('/searchedhomes')
-             .then( res => {
-                 console.log(res.data)
+        // this.state.city && this.state.country ? 
+        // this.props.getSearchedHomesByCity(this.state.country, this.state.city) 
+        // : alert('Please enter both a valid Country & City to search through the homes');
+        this.state.city && this.state.country ?
+        axios.get(`/searchedhomes/${this.state.country}/${this.state.city}`)
+             .then( homes => {
+                 this.setState({
+                     homes: homes.data
+                 })
              })
+        :
+        alert('Please enter both a valid Country & City to search through the homes');
+    }
+
+    handlePageClick(event) {
+        this.setState({
+            currentPage: Number(event.target.id)
+        })
     }
 
     render() {
-        
-        const homes = this.state.homes.map( (home, i) => {
+        const {currentPage, homes, homesPerPage} = this.state
+
+        const indexOfLastHome = currentPage * homesPerPage;
+        const indexOfFirstHome = indexOfLastHome - homesPerPage;
+        const currentHomes = homes.slice(indexOfFirstHome, indexOfLastHome);
+
+        const homesList = currentHomes.map( (home, i) => {
             return <div key={i} className='homes'>             
                 <img className='home_img' src={home.img} alt='' />
                 <Link to={`/displayhome/${home.user_id}`} className='home_title'> {home.title} </Link>
@@ -64,6 +82,19 @@ class Homes extends Component {
                     <i className="fa fa-users icon" aria-hidden="true"> <span className='icon_nums'>{home.guests}</span> </i>
                 </div>
             </div>
+        })
+
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(this.state.homes.length / this.state.homesPerPage); i++) {
+          pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map( number => {
+            return (
+                <span key={number} id={number} className='page_numbers' onClick={this.handlePageClick}>
+                    {number}
+                </span>
+            )
         })
 
         return(
@@ -81,7 +112,11 @@ class Homes extends Component {
                 </div>
 
                 <div className='homes_list'>
-                    { homes }
+                    { homesList }
+                </div>
+
+                <div className='page_container'>
+                    {renderPageNumbers}
                 </div>
 
                 <Footer />
@@ -93,4 +128,4 @@ class Homes extends Component {
 
 
 
-export default connect(null, {getSearchedHomesByCity})(Homes);
+export default Homes;

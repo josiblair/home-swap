@@ -138,22 +138,24 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     margin-left: $margin;
 }
 
-// .swap_button {
-//     text-decoration: none;
-//     font-family: $body-font;
-//     font-size: $font-size - 2px;
-//     align-self: flex-end;
-//     margin-bottom: 5px;
-//     border: 1px solid $pink;
-//     border-radius: 3px;
-//     background-color: white;
-//     color: $pink;
-//     padding: 2px 7px;
-//     font-weight: bold;
-//     box-shadow: 0 5px 3px 0 rgba(0, 0, 0, 0.15), 0 5px 3px 0 rgba(0, 0, 0, 0.1);
-// }
+.page_container {
+    background-color: $gray;
+    color: $pink;
+    font-size: $font-size + 5px;
+    font-family: $body-font;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 
-// .swap_button:hover {
-//     background-color: $pink;
-//     color: white;
-// }
+.page_numbers {
+    border: $border;
+    padding: 2px;
+    margin-right: 5px;
+    margin-bottom: $margin;
+}
+
+.page_numbers:hover {
+    background-color: $gunmetal;
+    color: white;
+}

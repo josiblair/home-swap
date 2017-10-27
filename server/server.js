@@ -76,7 +76,7 @@ app.get('/auth/logout', (req, res) => {
 app.post( '/addhome', hc.addHome )
 app.get( '/displayall', hc.displayAll )
 app.get( '/displaymyhome/:id', hc.displayMyHome )
-app.get( '/searchedhomes', hc.searchedHomes )
+app.get( '/searchedhomes/:country/:city', hc.searchedHomes )
 app.get( '/displayonehome/:id', hc.displayOne )
 app.delete( '/api/updatehome/:id', hc.updateHome )
 
@@ -85,7 +85,8 @@ app.delete( '/api/updatehome/:id', hc.updateHome )
 
 //MESSAGES ENDPOINTS
 app.post( '/sendmessage', mc.sendMessage );
-app.get(`/getmessages/:id`, mc.getAllMessages )
+app.get(`/getmessages/:id`, mc.getAllMessages );
+app.delete(`/deletemessage/:id`, mc.deleteMessage );
 
 //--------------------------------------------------
 

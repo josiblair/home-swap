@@ -26,8 +26,6 @@ const ADD_HOME = 'ADD_HOME';
 const UPDATE_USER = 'UPDATE_USER';
 const GET_SEARCHED_HOMES = 'GET_SEARCHED_HOMES';
 const SEND_MESSAGE = 'SEND_MESSAGE';
-// const SENT_MESSAGES = 'SENT_MESSAGES';
-// const RECEIVED_MESSAGES = 'RECEIVED_MESSAGES';
 
 
 
@@ -41,10 +39,6 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, { searchedCity: action.payload });
         case SEND_MESSAGE + FULFILLED:
             return state;
-        // case SENT_MESSAGES + FULFILLED:
-        //     return Object.assign( {}, state, { sentMessages: [...state.sentMessages, action.payload] } )
-        // case RECEIVED_MESSAGES + FULFILLED:
-        //     return Object.assign( {}, state, { receivedMessages: [...state.receivedMessages, action.payload] } );
         default:
             return state;
     }
@@ -74,16 +68,16 @@ export function fetchUserData(id) {
     
 }
 
-export function getSearchedHomesByCity(country, city) {
-    const homes = axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/'${city}'.json?${process.env.API_ACCESS_TOKEN}&country=${country}` )
-        .then( response => {
-            console.log('searched:',response);    //return latitude/longitude of city??              
-   })
-   return {
-       type: GET_SEARCHED_HOMES,
-       payload: homes
-   }
-}
+// export function getSearchedHomesByCity(country, city) {
+//     const homes = axios.get( `https://api.mapbox.com/geocoding/v5/mapbox.places/'${city}'.json?${process.env.API_ACCESS_TOKEN}&country=${country}` )
+//         .then( response => {
+//             console.log('searched:',response);    //return latitude/longitude of city??              
+//    })
+//    return {
+//        type: GET_SEARCHED_HOMES,
+//        payload: homes
+//    }
+// }
 
 
 export function sendMessage(senderId, receiverId, messageBody) {
@@ -96,25 +90,3 @@ export function sendMessage(senderId, receiverId, messageBody) {
         }
 }
 
-// export function sentMessages(senderId) {
-//     const messages = axios.get(`/sentmessages/${senderId}`)
-//                     .then( messages => {
-//                         return messages.data;
-//                     })
-//         return {
-//             type: SENT_MESSAGES,
-//             payload: messages
-//         }
-// }
-
-
-// export function receivedMessages(senderId) {
-//     const messages = axios.get(`/receivedmessages/${senderId}`)
-//                      .then( messages => {
-//                          return messages.data;
-//                      })
-//         return {
-//             type: RECEIVED_MESSAGES,
-//             payload: messages
-//         }
-// }

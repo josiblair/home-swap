@@ -103,9 +103,9 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 .view_button {
     font-family: $body-font;
     background-color: white;
-    border: 2px solid $gunmetal;
+    border: 2px solid $pink;
     border-radius: 3px;
-    color: $gunmetal;
+    color: $pink;
     padding: 13px 27px;
     text-align: center;
     text-decoration: none;
@@ -116,6 +116,6 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 .view_button:hover {
     background-color: $pink;
-    border: 1px solid $pink;
+    border: 2px solid $pink;
     color: white;
 }
