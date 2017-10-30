@@ -39,8 +39,8 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 .profile_img {
     border: $border;
-    height: 120px;
-    width: 120px;
+    height: 160px;
+    width: 160px;
     margin: $margin;
 }
 
@@ -76,7 +76,7 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 .message_box {
     margin-top: $margin;
-    border: $border;
+    // border: $border;
     height: 63vh;
     width: 35vw;
 }
