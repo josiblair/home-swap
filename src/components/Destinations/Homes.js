@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import './Homes.css';
+import swal from 'sweetalert';
 // import {connect} from 'react-redux';
 // import {getSearchedHomesByCity} from '../../ducks/reducer';
 
@@ -55,7 +56,7 @@ class Homes extends Component {
                  })
              })
         :
-        alert('Please enter both a valid Country & City to search through the homes');
+        swal('Error','Please enter both a valid Country & City to search through the homes', 'error');
     }
 
     handlePageClick(event) {

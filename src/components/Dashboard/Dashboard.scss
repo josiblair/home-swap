@@ -30,7 +30,6 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 .prof_sidenav {
     height: 40vh;
-    border: $border;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -76,7 +75,6 @@ $shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
 .message_box {
     margin-top: $margin;
-    // border: $border;
     height: 63vh;
     width: 35vw;
 }
