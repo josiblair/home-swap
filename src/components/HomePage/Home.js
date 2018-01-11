@@ -64,7 +64,8 @@ class Home extends Component {
 
                 <div className='stories_main'>
                     <div className='stories_container'>
-                        <Carousel />
+                        **CAROUSEL** 
+                        {/* <Carousel /> */}
                     </div>
                 </div>
 

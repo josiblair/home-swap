@@ -6,10 +6,13 @@ const express = require('express'),
       passport = require('passport'),
       Auth0Strategy = require('passport-auth0'),
       cors = require('cors'),
+      path = require('path'),
       hc = require('../server/homesController'),
       mc = require('../server/messagesController');
 
 const app = express();
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 app.use(cors());
 
@@ -104,6 +107,9 @@ passport.deserializeUser( ( id, done ) => {
      
 })
 
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+})
 
 const PORT = 3005;
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
