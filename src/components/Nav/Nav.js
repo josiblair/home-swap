@@ -56,7 +56,7 @@ class Nav extends Component {
                     <Link to='/'><img src={logo} alt='logo' className='logo' /></Link>
                 </div>
 
-                    {this.userPresent()} 
+                    { this.userPresent() } 
 
             </div>
         )
